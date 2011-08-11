@@ -1,0 +1,30 @@
+NEXT is a Java GWT UI framework for developing Native Looking HTML5 Mobile applications for SmartPhones and Tablets.
+
+More information:
+============
+ http://nextframework.com/
+ 
+
+Documentation:
+============
+ http://nextinterfaces.com/START/
+
+
+Dependancies:
+============
+Java5+
+GWT2.2+
+
+
+Phones & Tablets:
+============
+iOS, Android, BlackBerry OS6+, BlackBerry PlayBook, Samsung Bada, Palm webOS
+
+ 
+Installation
+============
+	Copy the next.jar file(next/war/WEB-INF/next.jar) to your project and 
+	add it to your classpath.
+
+	See the attached demo project for more information.
+ 
