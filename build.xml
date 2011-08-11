@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ * Copyright 2011 Vancouver Ywebb Consulting Ltd
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+-->
+<project basedir="." default="dist" name="next">
+
+	<property file="build.properties" />
+
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<property name="build.root.dir" value="build" />
+	<property name="build.war.dir" value="build/war" />
+	<property name="build.dist.dir" value="build/dist" />
+	<property name="build.src.dir" value="build/src" />
+	<property name="war.dir" value="war" />
+	<property name="next.demo" value="/Users/anna/_dev/next/next-demo" />
+
+	<path id="java.classpath">
+		<pathelement location="${build.src.dir}" />
+		<fileset dir="war/WEB-INF/lib/gwt.sdk">
+			<include name="**/*.jar" />
+		</fileset>
+		<!--
+		<fileset dir="war/WEB-INF/lib/gwt.addons">
+			<include name="**/*.jar" />
+		</fileset>
+		-->
+	</path>
+
+	<path id="gwt.classpath">
+		<pathelement location="${build.src.dir}" />
+		<!-- <pathelement location="src-gwtfx" /> -->
+		<path refid="java.classpath" />
+	</path>
+
+	<!-- ===================================================================
+			macrodef: set.timestamp              
+	==================================================================== -->
+	<macrodef name="set.timestamp">
+		<sequential>
+			<tstamp>
+				<format property="current.time" pattern="MMddhhmm" />
+			</tstamp>
+		</sequential>
+	</macrodef>
+
+	<!-- ===================================================================
+			target: init              
+	==================================================================== -->
+	<target name="init" depends="clean, prepare">
+		<set.timestamp />
+	</target>
+
+	<!-- ===================================================================
+			target: clean              
+	====================================================================	-->
+	<target name="clean">
+		<delete dir="${build.root.dir}" />
+	</target>
+
+	<!-- ===================================================================
+			target: prepare              
+	==================================================================== -->
+	<target name="prepare">
+		<mkdir dir="${build.src.dir}" />
+		<mkdir dir="${build.war.dir}" />
+		<mkdir dir="${build.dist.dir}/hello-next/war/WEB-INF" />
+	</target>
+
+	<!-- ===================================================================
+			target: build              
+	==================================================================== -->
+	<target name="build" depends="">
+		<echo message="${ant.project.name}: ${ant.file}" />
+	</target>
+
+	<!-- ===================================================================
+			target: compile.java            
+	==================================================================== -->
+	<target name="compile" depends="init">
+		
+		<copy todir="${build.src.dir}">
+			<fileset dir="src">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>	
+		
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${build.src.dir}" source="${source}" target="${target}">
+			<src path="${build.src.dir}" />
+			<classpath refid="java.classpath" />
+			<compilerarg value="-Xlint:-unchecked" />
+		</javac>
+
+		<jar destfile="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" basedir="${build.src.dir}" excludes="**/*.launch">
+		</jar>
+
+		<copy file="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" tofile="${next.demo}/war/WEB-INF/lib/${product.name}.jar" />
+
+	</target>
+
+	<target name="zip" depends="compile">
+
+		<copy file="${next.demo}/war/next.css" tofile="${build.dist.dir}/hello-next/war/next.css" />
+		<copy file="${next.demo}/war/index.html" tofile="${build.dist.dir}/hello-next/war/index.html" />
+		<copy file="./src/License-Agreement.txt" tofile="${build.dist.dir}/License-Agreement.txt" />
+		<copy file="./README.txt" tofile="${build.dist.dir}/README.txt" />
+		
+		<copy file="${next.demo}/.project" tofile="${build.dist.dir}/hello-next/.project" />
+		<copy file="${next.demo}/.classpath" tofile="${build.dist.dir}/hello-next/.classpath" />
+		<copy todir="${build.dist.dir}/hello-next/.settings">
+			<fileset dir="${next.demo}/.settings">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>	
+		<copy file="${next.demo}/war/WEB-INF/web.xml" tofile="${build.dist.dir}/hello-next/war/WEB-INF/web.xml" />
+
+		<replace file="${build.dist.dir}/hello-next/.project" token="next-Demo" value="hello-next" />
+		<replace file="${build.dist.dir}/hello-next/.classpath" token="next-Demo" value="hello-next" />
+
+		<replace file="${build.dist.dir}/hello-next/.classpath" value="&lt;classpathentry kind=&#034;lib&#034; path=&#034;war/WEB-INF/next.jar&#034;/&gt;">
+			<replacetoken><![CDATA[<classpathentry combineaccessrules="false" kind="src" path="/next"/>]]></replacetoken>
+		</replace>
+		
+		<!-- TODO classpath		
+		<classpathentry combineaccessrules="false" kind="src" path="/next"/>
+		<classpathentry kind="lib" path="war/WEB-INF/next.jar"/>
+		-->
+		
+		<copy todir="${build.dist.dir}/hello-next/war/images">
+			<fileset dir="${next.demo}/war/images">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+		<copy todir="${build.dist.dir}/hello-next/src">
+			<fileset dir="${next.demo}/src">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		
+		<zip destfile="${build.dist.dir}/${product.name}-${product.version}.zip" basedir="${build.dist.dir}" excludes="**/*.launch">
+		</zip>
+
+		<!-- <copy file="./war/next.css" tofile="${next.demo}/war/next.css" />
+		<copy file="./war/index.html" tofile="${next.demo}/war/index.html" /> -->
+
+		<!--
+		<echo file="${build.dist.dir}/index.html">
+			&lt;!DOCTYPE html&gt;
+			&lt;html&gt;
+				&lt;head&gt;
+					&lt;meta http-equiv="refresh" content="0;url=${product.name}-${product.version}.zip"&gt;
+				&lt;/head&gt;
+				&lt;body&gt;
+				&lt;/body&gt;
+			&lt;/html&gt;
+		</echo>
+		-->
+		
+	</target>
+
+	<!-- ===================================================================
+			target: javadoc              
+	==================================================================== -->
+	<target name="javadoc">
+		<javadoc excludepackagenames="
+				next.i.mobile,
+				next.i.util,
+				next.i.view.incubator,
+				next.i.anime,
+			" 
+			classpath="/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/validation-api-1.0.0.GA-sources.jar:/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/gwt-dev.jar:/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/gwt-user.jar:/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/validation-api-1.0.0.GA.jar" 
+			destdir="${build.dist.dir}/api" 
+			packagenames="
+				next.i,
+				next.i.view,
+				next.i.view.widgets,
+				next.i.controller,
+				next.i.util,
+				" source="1.6" sourcepath="src" 
+			stylesheetfile="api/api-stylesheet.css"
+
+			nodeprecated="true" nodeprecatedlist="true" 
+			
+			noindex="true" 
+			nonavbar="true" 
+			notree="true" 
+			splitindex="false" 
+			
+			access="public" 
+			author="false"
+			use="false" 
+			
+			version="true" 
+			doctitle=" "
+			protected="false" 
+	/>
+		
+		<copy todir="${build.dist.dir}/api/resources">
+			<fileset dir="api">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		
+	</target>
+
+	<!-- ===================================================================
+			target: dist              
+	==================================================================== -->
+	<target name="dist" depends="compile, javadoc, zip">
+
+		<copy file="${build.dist.dir}/${product.name}-${product.version}.zip" 
+					tofile="dist/${product.name}-${product.version}.zip" />
+
+	</target>
+
+</project>
