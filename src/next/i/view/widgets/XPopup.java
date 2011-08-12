@@ -21,7 +21,12 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.PopupPanel;
-
+/**
+ * 
+ * <p>
+ * <img class='ai' src='../../../../resources/XPopup.png' />
+ * </p>
+ */
 public class XPopup extends PopupPanel {
 
 	private final XPopupWrapper overlayWrapper;

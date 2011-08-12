@@ -30,7 +30,7 @@
 
 	<path id="java.classpath">
 		<pathelement location="${build.src.dir}" />
-		<fileset dir="war/WEB-INF/lib/gwt.sdk">
+		<fileset dir="lib/gwt.sdk">
 			<include name="**/*.jar" />
 		</fileset>
 		<!--
@@ -107,7 +107,7 @@
 		<jar destfile="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" basedir="${build.src.dir}" excludes="**/*.launch">
 		</jar>
 
-		<copy file="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" tofile="${next.demo}/war/WEB-INF/lib/${product.name}.jar" />
+		<!-- <copy file="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" tofile="${next.demo}/war/WEB-INF/lib/${product.name}.jar" /> -->
 
 	</target>
 
@@ -115,8 +115,8 @@
 
 		<copy file="${next.demo}/war/next.css" tofile="${build.dist.dir}/hello-next/war/next.css" />
 		<copy file="${next.demo}/war/index.html" tofile="${build.dist.dir}/hello-next/war/index.html" />
-		<copy file="./src/License-Agreement.txt" tofile="${build.dist.dir}/License-Agreement.txt" />
-		<copy file="./README.txt" tofile="${build.dist.dir}/README.txt" />
+		<copy file="./LICENSE" tofile="${build.dist.dir}/LICENSE" />
+		<copy file="./README" tofile="${build.dist.dir}/README" />
 		
 		<copy file="${next.demo}/.project" tofile="${build.dist.dir}/hello-next/.project" />
 		<copy file="${next.demo}/.classpath" tofile="${build.dist.dir}/hello-next/.classpath" />
