@@ -57,6 +57,7 @@ public enum XStyle {
 	xcheckboxGroup,
 	xcheckbox,
 	xradioButtonGroup,
-	xradioButton
+	xradioButton,
+	xpopup
 	
 }

@@ -16,7 +16,7 @@
 package next.i.view.incubator;
 
 
-public class FxUtil {
+public class FxUtilOld {
 
 //  public static NMorphStyle moveEffect(int fromX, int toX, Element element, final Command afterMoveCommand) {
 ////    int top = Globals.NAV_HIGHT; // getAbsoluteTop();
