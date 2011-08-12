@@ -60,7 +60,7 @@
 	<!-- ===================================================================
 			target: init              
 	==================================================================== -->
-	<target name="init" depends="clean, prepare">
+	<target name="init" depends="clean, prepare, buildNumber">
 		<set.timestamp />
 	</target>
 
@@ -85,6 +85,15 @@
 	==================================================================== -->
 	<target name="build" depends="">
 		<echo message="${ant.project.name}: ${ant.file}" />
+	</target>
+	
+	
+	<target name="buildNumber">
+		<propertyfile file="build.number">
+			<entry key="build.number" type="int" operation="+" default="1" />
+		</propertyfile>
+		<property file="build.number" />
+		<echo message="Building version ${product.version}.${build.number}" />
 	</target>
 
 	<!-- ===================================================================
@@ -151,7 +160,7 @@
 			</fileset>
 		</copy>
 		
-		<zip destfile="${build.dist.dir}/${product.name}-${product.version}.zip" basedir="${build.dist.dir}" excludes="**/*.launch">
+		<zip destfile="${build.dist.dir}/${product.name}-${product.version}.${build.number}.zip" basedir="${build.dist.dir}" excludes="**/*.launch">
 		</zip>
 
 		<!-- <copy file="./war/next.css" tofile="${next.demo}/war/next.css" />
@@ -222,8 +231,8 @@
 	==================================================================== -->
 	<target name="dist" depends="compile, javadoc, zip">
 
-		<copy file="${build.dist.dir}/${product.name}-${product.version}.zip" 
-					tofile="dist/${product.name}-${product.version}.zip" />
+		<copy file="${build.dist.dir}/${product.name}-${product.version}.${build.number}.zip" 
+					tofile="dist/${product.name}-${product.version}.${build.number}.zip" />
 
 	</target>
 
