@@ -9,6 +9,7 @@
 package next.i.view.widgets;
 
 import next.i.XStyle;
+import next.i.util.FxUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,6 +17,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.PopupPanel;
 
@@ -32,6 +34,24 @@ public class XPopupWrapper {
 		public HandlerRegistration addClickHandler(ClickHandler handler) {
 			return addHandler(handler, ClickEvent.getType());
 		}
+
+		@Override
+		public void hide(final boolean autoClosed) {
+			FxUtil.fadeOut(this, new Command() {
+				@Override
+				public void execute() {
+					OverlayPanel.super.hide(autoClosed);
+				}
+			});
+		}
+
+		@Override
+		public void show() {
+			setVisible(false);
+			super.show();
+			FxUtil.fadeIn(this);
+		}
+
 	}
 
 	private OverlayPanel overlay;
@@ -66,28 +86,28 @@ public class XPopupWrapper {
 			}
 		});
 
-//		Window.addResizeHandler(new ResizeHandler() {
-//			@Override
-//			public void onResize(ResizeEvent event) {
-//				DOM.setStyleAttribute(overlay.getElement(), "height", getHeight() + "px");
-//				DOM.setStyleAttribute(overlay.getElement(), "width", Window.getClientWidth() + "px");
-//			}
-//		});
+		// Window.addResizeHandler(new ResizeHandler() {
+		// @Override
+		// public void onResize(ResizeEvent event) {
+		// DOM.setStyleAttribute(overlay.getElement(), "height", getHeight() +
+		// "px");
+		// DOM.setStyleAttribute(overlay.getElement(), "width",
+		// Window.getClientWidth() + "px");
+		// }
+		// });
 	}
 
 	public void showOverlay() {
-//		DOM.setStyleAttribute(overlay.getElement(), "height", getHeight() + "px");
-//		DOM.setStyleAttribute(overlay.getElement(), "width", Window.getClientWidth() + "px");
 		overlay.show();
 	}
 
-//	private int getHeight() {
-//		return Window.getClientWidth();
-//		// if (MiscUtils.isIE()) {
-//		// return Window.getClientWidth(); // IE workarounds..
-//		// } else {
-//		// return MiscUtils.getViewportHeight();
-//		// }
-//	}
+	// private int getHeight() {
+	// return Window.getClientWidth();
+	// // if (MiscUtils.isIE()) {
+	// // return Window.getClientWidth(); // IE workarounds..
+	// // } else {
+	// // return MiscUtils.getViewportHeight();
+	// // }
+	// }
 
 }

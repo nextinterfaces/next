@@ -58,7 +58,9 @@ public class FxUtil {
 				new Timer() {
 					public void run() {
 						obj.setVisible(false);
-						onClose.execute();
+						if (onClose != null) {
+							onClose.execute();
+						}
 					}
 				}.schedule(290);
 

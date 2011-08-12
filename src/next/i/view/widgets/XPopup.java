@@ -81,7 +81,6 @@ public class XPopup extends PopupPanel {
 	public void show() {
 		overlayWrapper.showOverlay();
 		if (positionChanged) {
-
 			setVisible(false);
 			super.show();
 			doPosition();
