@@ -39,6 +39,7 @@ Hello World in 30 seconds:
    1. Create a new GWT project
    2. Add next.jar to project classpath
    3. Create class HelloWorldController
+      -------
       class HelloWorldController extends XTableController {
         public HelloWorldController() {
           setTitle("Hello World");
@@ -47,17 +48,18 @@ Hello World in 30 seconds:
           initDataSource(tableDS);
         }
       }
+      -------
       
    4. In your EntryPoint class type
+      -------
       public void onModuleLoad() {
         XTabBarController tabBarController = new XTabBarController();
         tabBarController.addControllers(new XTabController(new HelloWorldController()));
       }
+      -------
       
    5. Eclipse /Run /Run as Web Application
-      Resulting in <img src=http://goo.gl/fFQXY />
-      
-      
+      Resulting in http://goo.gl/fFQXY
 
 See the attached /hello-next project or /next-demo https://github.com/nextinterfaces/next-demo for more information.
  
