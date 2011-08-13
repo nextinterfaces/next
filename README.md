@@ -31,7 +31,7 @@ Installation:
 -------------
 
 * [Download](http://nextinterfaces.com/download) `next-xx.zip` file 
-* Add the attached /hello-next project to Eclipse. Eclipse should automatically discover it as a GWT project.
+* Add the attached `hello-next` project to Eclipse. Eclipse should automatically discover it as a GWT project.
 * From Eclipse /Run /Run As Web Application.
 * Alternatively, you can also copy `hello-next/war/WEB-INF/next.jar` file to your GWT project and add it to your classpath.
 
