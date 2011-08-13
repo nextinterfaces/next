@@ -1,15 +1,16 @@
 NEXT
 ====
 
-NEXT is a Java GWT UI framework for developing cross-platform Native Looking HTML5 Mobile applications for SmartPhones and Tablets. 
+NEXT is a Java GWT UI framework for developing Native Looking HTML5 Mobile apps for SmartPhones and Tablets. 
 
-MVC based. Amazing looking UI catalog. Apache License v2.0.
+MVC based. Amazing looking UI catalog. Cross-Platform.
 
 ### More information:
 http://nextinterfaces.com/
 
 ### Demo (WebKit only):
 http://nextinterfaces.com/DEMO
+
 
 Supported Phones & Tablets:
 ---------------------------
@@ -40,8 +41,7 @@ Installation:
 
 ### Hello World in 30 seconds:
 
-* Create a new GWT project
-* Add `next.jar` to project classpath
+* Create a new GWT project as explained above
 * Create class `HelloWorldController`
 
 				class HelloWorldController extends XTableController {
@@ -70,4 +70,12 @@ Documentation:
 --------------
 
 http://nextinterfaces.com/START
+
+### Google Group:
+http://groups.google.com/group/nextinterfaces
+
+### Forum:
+http://nextinterfaces.com/forum
+
+Copyright (c) 2011 Vancouver YWebb Consulting Ltd, released under Apache License v.2.0
  
