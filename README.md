@@ -17,7 +17,6 @@ Supported Phones & Tablets:
 
 Device agnostic, it runs on 6 devices: iOS, Android, BlackBerry OS6+, webOS, Samsung Bada, PlayBook
 
-
 ### Dependencies:
 * Java5+
 * GWT (Google Web Kit) 2.2+
