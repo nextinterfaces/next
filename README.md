@@ -63,7 +63,7 @@ Installation:
       
 * Eclipse `/Run /Run as Web Application` resulting in [this screenshot](http://goo.gl/fFQXY)
 
-See the attached `/hello-next` project or [next-demo](https://github.com/nextinterfaces/next-demo) for more information.
+See the zipped `/hello-next` project or [next-demo](https://github.com/nextinterfaces/next-demo) for more information.
 
 
 Documentation:
