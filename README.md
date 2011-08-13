@@ -32,8 +32,13 @@ Installation:
 
 * [Download](http://nextinterfaces.com/download) `next-xx.zip` file 
 * Add the attached `hello-next` project to Eclipse. Eclipse should automatically discover it as a GWT project.
-* From Eclipse /Run /Run As Web Application.
-* Alternatively, you can also copy `hello-next/war/WEB-INF/next.jar` file to your GWT project and add it to your classpath.
+* From Eclipse /Run /Run As Web Application
+* You should see a demo running similar to [next-demo](http://nextinterfaces.com/demo)
+
+* Alternatively, you can copy `hello-next/war/WEB-INF/next.jar` file to your GWT project
+* Add it to your `classpath`
+* Add `next.css` and `next/images` to your project root.
+* And those are all the required libraries to get you started
 
 Hello World in 30 seconds:
 --------------------------
@@ -62,7 +67,7 @@ Hello World in 30 seconds:
 * Eclipse /Run /Run as Web Application
       Resulting in [this screenshot](http://goo.gl/fFQXY)
 
-See the attached `/hello-next` project or (next-demo)[https://github.com/nextinterfaces/next-demo] for more information.
+See the attached `/hello-next` project or (NextDemo)[https://github.com/nextinterfaces/next-demo] for more information.
 
 
 Documentation:
