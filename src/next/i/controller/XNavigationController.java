@@ -34,8 +34,7 @@ import com.google.gwt.user.client.Command;
  * appropriately.
  * 
  * <p>
- * <img class='ai' src='
- * 'http://next.com/wp-content/uploads/2011/05/navigationController.png' />
+ * <img src='../../../resources/XNavigationView.png'/>
  * </p>
  * 
  * <h3>Example:</h3>
@@ -49,14 +48,14 @@ import com.google.gwt.user.client.Command;
  *  		getNavigationBar().setRightTitle("Source");
  *  		getNavigationBar().setLeftTitle("Back", Type.BACK_BUTTON);
  *  
- *  		TableDataSource tableDS = new TableDataSource();
+ *  		TableData tableDS = new TableData();
  *   		tableDS.add(&quot;0 list item&quot;, &quot;1 list item&quot;);
  *  
  *  		initDataSource(tableDS);
  *  	}
  *  }
  *  ..
- * new NavigationController(new MyController());
+ * new XNavigationController(new MyController());
  * </pre>
  */
 public class XNavigationController implements IController {

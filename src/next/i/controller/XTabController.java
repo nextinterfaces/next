@@ -27,12 +27,11 @@ import com.google.gwt.user.client.ui.Image;
  * Manages a single tab view holding tab title, tab image and tab inner
  * controller.
  * 
- * It also acts as a mediator between master TabBarController and inner view
+ * It also acts as a mediator between master XTabBarController and inner view
  * IController.
  * 
  * <p>
- * <img class='ai' src=
- * 'http://next.com/wp-content/uploads/2011/05/next-Tab1.png' />
+ * <img src='../../../resources/XTab.png'/>
  * </p>
  */
 public class XTabController implements EventListener {

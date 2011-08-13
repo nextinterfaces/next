@@ -27,9 +27,4 @@ interface C extends ClientBundle {
 	@Source("Transforms.css")
 	Transforms s();
 
-	// @Source("arrowdown.png")
-	// ImageResource arrowdown();
-	//
-	// @Source("arrowup.png")
-	// ImageResource arrowup();
 }

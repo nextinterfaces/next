@@ -33,22 +33,21 @@ import com.google.gwt.user.client.ui.IsWidget;
  * Manages a TableView, automatically creating an instance with the correct
  * dimensions and resizing mask, and acting as the table view's delegate and
  * data source.
+ * 
  * <p>
- * <img class='ai' src='
- * 'http://next.com/wp-content/uploads/2011/05/helloworld-gwt-touch-300x247.png'
- * />
+ * <img src='../../../resources/XTableView.png'/>
  * </p>
  * 
  * <h3>Example:</h3>
  * 
  * <pre>
- * public class MyTableController extends TableController {
+ * public class MyTableController extends XTableController {
  * 
  * 	public MyTableController() {
  * 
  * 		setTitle(&quot;Hello World&quot;);
  * 
- * 		TableDataSource tableDS = new TableDataSource();
+ * 		TableData tableDS = new TableData();
  * 		tableDS.add(&quot;Hello&quot;, &quot;World&quot;);
  * 
  * 		initDataSource(tableDS);

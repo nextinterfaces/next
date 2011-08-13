@@ -32,28 +32,26 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
  * the view to be displayed when the item is selected.
  * 
  * <p>
- * <img class='ai' src='
- * 'http://next.com/wp-content/uploads/2011/05/tabs-gwt-touch-253x300.png'
- * />
+ * <img src='../../../resources/XTabBar.png'/>
  * </p>
  * 
  * <h3>Example:</h3>
  * 
  * <pre>
- * TabController tabOne = new TabController(new ControllerOne());
+ * XTabController tabOne = new XTabController(new ControllerOne());
  * tabOne.set(&quot;Hello&quot;, new Image(&quot;tabIcon.png&quot;), new Image(&quot;tabSelected.png&quot;));
  * 
- * TabController tabTwo = new TabController(new TableController() {
+ * XTabController tabTwo = new XTabController(new TableController() {
  * 	{
  * 		setTitle(&quot;GoodBye&quot;);
- * 		TableDataSource tableDS = new TableDataSource();
+ * 		TableData tableDS = new TableData();
  * 		tableDS.add(&quot;Good&quot;, &quot;Bye&quot;);
  * 		initDataSource(tableDS);
  * 	}
  * });
  * tabTwo.set(&quot;GoodBye&quot;, new Image(&quot;tabIcon.png&quot;), new Image(&quot;tabSelected.png&quot;));
  * 
- * TabBarController tabBar = new TabBarController();
+ * XTabBarController tabBar = new XTabBarController();
  * tabBar.addControllers(tabOne, tabTwo);
  * </pre>
  */

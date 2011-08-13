@@ -31,21 +31,17 @@ import com.google.gwt.user.client.ui.IsWidget;
  * transitions.
  * 
  * <p>
- * <img class='ai' src='
- * 'http://next.com/wp-content/uploads/2011/05/next-swapController.png'
- * />
+ * <img src='../../../resources/XController.png'/>
  * </p>
  * 
  * <h3>Example:</h3>
  * 
  * <pre>
- * class MyXController extends XController {
+ * class MyController extends XController {
  * 
  * 	private Command action;
  * 
- * 	public MyXController() {
- * 
- * 		super(new HTML(&quot;DemoXController&quot;));
+ * 	public MyController() {
  * 
  * 		setTitle(&quot;Transform&quot;);
  * 
