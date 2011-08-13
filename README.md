@@ -33,10 +33,18 @@ Installation:
 * You should see a demo similar to [next-demo](http://nextinterfaces.com/demo)
 
 ### Start a new project:
-* Alternatively, you can copy `hello-next/war/WEB-INF/next.jar` file to your GWT project
-* Add it to your `classpath`
-* Add `next.css` and `next/images` to your project root.
-* And those are all the required libraries to get you started
+* [Download](http://nextinterfaces.com/download) `next-xx.zip` file 
+* Add the attached `next.jar` (`/hello-next/war/WEB-INF/next.jar`) file to your GWT project & classpath
+* Add `next.css` and `next/images` to your project root. Use `index.html` for reference.
+* Edit your project .gwt.xml and add
+
+				<?xml version="1.0" encoding="UTF-8"?>
+				<module rename-to='your-mobule-name'>
+								...
+								<inherits name='next.interfaces' />
+								<entry-point class='com.domain.YourEntryPoint' />
+								...
+				</module>
 
 
 ### Hello World in 30 seconds:
