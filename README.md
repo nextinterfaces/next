@@ -1,28 +1,24 @@
-next
+NEXT
 ====
 
-NEXT is a Java GWT UI framework for developing Native Looking HTML5 Mobile applications for SmartPhones and Tablets. 
+NEXT is a Java GWT UI framework for developing cross-platform Native Looking HTML5 Mobile applications for SmartPhones and Tablets. MVC based and amazing looking UI catalog.
 
 ### More information:
-
 http://nextinterfaces.com/
 
-
 ### DEMO (WebKit only):
-
 http://nextinterfaces.com/DEMO
- 
-Dependencies:
--------------
 
+Supported Phones & Tablets:
+---------------------------
+
+Device agnostic, it runs on 6 devices iOS, Android, BlackBerry OS6+, webOS, Samsung Bada, PlayBook
+
+
+### Dependencies:
 Java5+
 GWT (Google Web Kit) 2.2+
-
-
-### Supported Phones & Tablets:
-
-iOS, Android, BlackBerry OS6+, BlackBerry PlayBook, Samsung Bada, Palm webOS
-   
+Eclipse & ANT (optional)
 	
 Installation:
 -------------
@@ -64,7 +60,7 @@ Installation:
 * Eclipse /Run /Run as Web Application
       Resulting in [this screenshot](http://goo.gl/fFQXY)
 
-See the attached `/hello-next` project or (NextDemo)[https://github.com/nextinterfaces/next-demo] for more information.
+See the attached `/hello-next` project or [next-demo](https://github.com/nextinterfaces/next-demo) for more information.
 
 
 Documentation:
