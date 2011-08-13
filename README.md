@@ -1,7 +1,7 @@
-NEXT
+next
 ====
 
-NEXT is a Java GWT UI framework for developing Native Looking HTML5 Mobile applications for SmartPhones and Tablets.
+NEXT is a Java GWT UI framework for developing Native Looking HTML5 Mobile applications for SmartPhones and Tablets. 
 
 More information:
 -----------------
@@ -14,13 +14,6 @@ DEMO (WebKit only):
 
 http://nextinterfaces.com/DEMO
  
-
-Documentation:
---------------
-
-http://nextinterfaces.com/START
-
-
 Dependencies:
 -------------
 
@@ -40,14 +33,14 @@ Installation:
 * [Download](http://nextinterfaces.com/download) `next-xx.zip` file 
 * Add the attached /hello-next project to Eclipse. Eclipse should automatically discover it as a GWT project.
 * From Eclipse /Run /Run As Web Application.
-* Alternatively, you can also copy `next.jar` `(hello-next/war/WEB-INF/)` file to your GWT project and add it to your classpath.
+* Alternatively, you can also copy `hello-next/war/WEB-INF/next.jar` file to your GWT project and add it to your classpath.
 
 Hello World in 30 seconds:
 --------------------------
 
 * Create a new GWT project
-* Add next.jar to project classpath
-* Create class HelloWorldController
+* Add `next.jar` to project classpath
+* Create class `HelloWorldController`
 
 				class HelloWorldController extends XTableController {
 						public HelloWorldController() {
@@ -58,16 +51,22 @@ Hello World in 30 seconds:
 						}
 				}
       
-* In your EntryPoint class type
+* In your `EntryPoint` class type
 
-      public void onModuleLoad() {
-        XTabBarController tabBarController = new XTabBarController();
-        tabBarController.addControllers(new XTabController(new HelloWorldController()));
-      }
+				public void onModuleLoad() {
+								XTabBarController tabBarController = new XTabBarController();
+								tabBarController.addControllers(new XTabController(new HelloWorldController()));
+				}
 
       
 * Eclipse /Run /Run as Web Application
-      Resulting in http://goo.gl/fFQXY
+      Resulting in [this screenshot](http://goo.gl/fFQXY)
 
-See the attached /hello-next project or /next-demo https://github.com/nextinterfaces/next-demo for more information.
+See the attached `/hello-next` project or (next-demo)[https://github.com/nextinterfaces/next-demo] for more information.
+
+
+Documentation:
+--------------
+
+http://nextinterfaces.com/START
  
