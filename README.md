@@ -2,7 +2,8 @@ NEXT
 ====
 
 NEXT is a Java GWT UI framework for developing cross-platform Native Looking HTML5 Mobile applications for SmartPhones and Tablets. 
-MVC based. Amazing looking UI catalog. Apache License v2.0
+
+MVC based. Amazing looking UI catalog. Apache License v2.0.
 
 ### More information:
 http://nextinterfaces.com/
@@ -17,9 +18,9 @@ Device agnostic, it runs on 6 devices: iOS, Android, BlackBerry OS6+, webOS, Sam
 
 
 ### Dependencies:
-Java5+
-GWT (Google Web Kit) 2.2+
-Eclipse & ANT (optional)
+* Java5+
+* GWT (Google Web Kit) 2.2+
+* Eclipse & ANT (optional)
 	
 Installation:
 -------------
@@ -27,10 +28,10 @@ Installation:
 ### Running the Demo:
 * [Download](http://nextinterfaces.com/download) `next-xx.zip` file 
 * Add the attached `hello-next` project to Eclipse. Eclipse should automatically discover it as a GWT project.
-* From Eclipse /Run /Run As Web Application
-* You should see a demo running similar to [next-demo](http://nextinterfaces.com/demo)
+* From Eclipse `/Run /Run As Web Application`
+* You should see a demo similar to [next-demo](http://nextinterfaces.com/demo)
 
-### Or start a new project:
+### Start a new project:
 * Alternatively, you can copy `hello-next/war/WEB-INF/next.jar` file to your GWT project
 * Add it to your `classpath`
 * Add `next.css` and `next/images` to your project root.
@@ -52,7 +53,7 @@ Installation:
 						}
 				}
       
-* In your `EntryPoint` class type
+* In your `EntryPoint` class paste
 
 				public void onModuleLoad() {
 								XTabBarController tabBarController = new XTabBarController();
