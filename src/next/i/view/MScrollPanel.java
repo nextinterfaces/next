@@ -25,6 +25,7 @@ import next.i.mobile.DragEvent;
 import next.i.mobile.DragEventsHandler;
 import next.i.mobile.SwipeEvent;
 import next.i.mobile.SwipeEventsHandler;
+import next.i.util.FxUtil;
 import next.i.util.Utils;
 
 import com.google.gwt.dom.client.Style.Unit;
@@ -66,18 +67,18 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 	}
 
 	public void reset() {
-		Utils.setTransitionDuration(getWidget().getElement(), 0);
-		Utils.setTranslateY(getWidget().getElement(), 0);
+		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
+		FxUtil.setTranslateY(getWidget().getElement(), 0);
 	}
 
 	public void setPostionToTop() {
-		Utils.setTransitionDuration(getWidget().getElement(), 0);
-		Utils.setTranslateY(getWidget().getElement(), 0);
+		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
+		FxUtil.setTranslateY(getWidget().getElement(), 0);
 	}
 
 	public void setPositionToBottom() {
-		Utils.setTransitionDuration(getWidget().getElement(), 0);
-		Utils.setTranslateY(getWidget().getElement(), this.getElement().getClientHeight()
+		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
+		FxUtil.setTranslateY(getWidget().getElement(), this.getElement().getClientHeight()
 				- this.getElement().getScrollHeight());
 	}
 
@@ -86,7 +87,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 			setStyleTop(pos);
 		} else {
 			Element element = getWidget().getElement();
-			Utils.setTranslateY(element, pos);
+			FxUtil.setTranslateY(element, pos);
 		}
 	}
 
@@ -95,7 +96,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 			return getStyleTop();
 		} else {
 			Element element = getWidget().getElement();
-			return Utils.getTranslateY(element);
+			return FxUtil.getTranslateY(element);
 		}
 	}
 
@@ -112,7 +113,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 	public void onDragStart(DragEvent e) {
 		double matrix = getScrollToPosition();
 		double current = getScrollPosition();
-		Utils.setTransitionDuration(getWidget().getElement(), 0);
+		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
 		if (current != matrix) {
 			// scroll on going
 			double diff = current - matrix;
@@ -162,11 +163,11 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 		int widgetHeight = widgetEle.getOffsetHeight();
 		// exceed top boundary
 		if (current > 0 || panelHeight > widgetHeight) {
-			Utils.setTransitionDuration(widgetEle, 500);
+			FxUtil.setTransitionDuration(widgetEle, 500);
 			setScrollPosition(0);
 		} else if (-current + panelHeight > widgetHeight) {
 			// exceed bottom boundary
-			Utils.setTransitionDuration(widgetEle, 500);
+			FxUtil.setTransitionDuration(widgetEle, 500);
 			setScrollPosition(panelHeight - widgetHeight);
 		}
 	}
@@ -203,7 +204,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 			time = (long) (time * timeAdj);
 			current = bottom;
 		}
-		Utils.setTransitionDuration(widgetEle, time);
+		FxUtil.setTransitionDuration(widgetEle, time);
 		setScrollPosition((int) current);
 	}
 

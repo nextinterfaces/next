@@ -83,14 +83,6 @@ public class Utils {
 		return $doc.activeElement;
 	}-*/;
 
-	public static boolean isAndroid() {
-		return Window.Navigator.getUserAgent().contains("Android");
-	}
-
-	public static boolean isIOS() {
-		return Window.Navigator.getUserAgent().contains("iPhone") || Window.Navigator.getUserAgent().contains("iPod");
-	}
-
 	public static boolean isWVGA() {
 		return Document.get().getDocumentElement().getClassName().contains("WVGA");
 	}
@@ -109,28 +101,10 @@ public class Utils {
 		return translateX;
 	}-*/;
 
-	public static native void setTranslateY(Element ele, double value) /*-{
-		ele.style.webkitTransform = "translate3d(0px, " + value + "px ,0px)";
-	}-*/;
-
-	public static native int getTranslateY(Element ele) /*-{
-		var transform = ele.style.webkitTransform;
-		var translateY = 0;
-		if (transform && transform !== "") {
-			translateY = parseInt((/translate3d\(0px, (\-?.*)px, 0px\)/)
-					.exec(transform)[1]);
-		}
-		return translateY;
-	}-*/;
-
 	public static native double getMatrixY(Element ele) /*-{
 		var matrix = new WebKitCSSMatrix(
 				window.getComputedStyle(ele).webkitTransform);
 		return matrix.f;
-	}-*/;
-
-	public static native void setTransitionDuration(Element ele, double value) /*-{
-		ele.style.webkitTransitionDuration = "" + value + "ms";
 	}-*/;
 
 	public static native int getHeight(Element ele) /*-{
@@ -158,6 +132,15 @@ public class Utils {
 		int index = DOM
 				.getChildIndex((com.google.gwt.user.client.Element) parent, (com.google.gwt.user.client.Element) div);
 		return index;
+	}
+
+	public static boolean isAndroid() {
+		return Window.Navigator.getUserAgent().contains("Android");
+	}
+
+	public static boolean isIOS() {
+		return Window.Navigator.getUserAgent().contains("iPhone") || Window.Navigator.getUserAgent().contains("iPod")
+				|| Window.Navigator.getUserAgent().contains("iPad");
 	}
 
 }

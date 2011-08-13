@@ -15,7 +15,7 @@
  */
 package next.i.util;
 
-import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.UIObject;
@@ -27,33 +27,34 @@ public class FxUtil {
 
 	public static void fadeIn(UIObject obj) {
 
-		final Style s = obj.getElement().getStyle();
+		final Element ele = obj.getElement();
 
 		obj.setVisible(false);
-		s.setOpacity(0);
-		s.setProperty("webkitTransitionProperty", "opacity");
-		s.setProperty("webkitTransitionDuration", "300ms");
+		ele.getStyle().setOpacity(0);
+		setTransitionProperty(ele, "opacity");
+		setTransitionDuration(ele, 300);
+		
 		obj.setVisible(true);
 
 		new Timer() {
 			public void run() {
-				s.setOpacity(1);
+				ele.getStyle().setOpacity(1);
 			}
 		}.schedule(10);
 	}
 
 	public static void fadeOut(final UIObject obj, final Command onClose) {
 
-		final Style s = obj.getElement().getStyle();
+		final Element ele = obj.getElement();
 
 		obj.setVisible(true);
-		s.setOpacity(1);
-		s.setProperty("webkitTransitionProperty", "opacity");
-		s.setProperty("webkitTransitionDuration", "300ms");
+		ele.getStyle().setOpacity(1);
+		setTransitionProperty(ele, "opacity");
+		setTransitionDuration(ele, 300);
 
 		new Timer() {
 			public void run() {
-				s.setOpacity(0);
+				ele.getStyle().setOpacity(0);
 
 				new Timer() {
 					public void run() {
@@ -67,5 +68,27 @@ public class FxUtil {
 			}
 		}.schedule(10);
 	}
+
+	public static native void setTranslateY(Element ele, double value) /*-{
+		ele.style.webkitTransform = "translate3d(0px, " + value + "px ,0px)";
+	}-*/;
+
+	public static native int getTranslateY(Element ele) /*-{
+		var transform = ele.style.webkitTransform;
+		var translateY = 0;
+		if (transform && transform !== "") {
+			translateY = parseInt((/translate3d\(0px, (\-?.*)px, 0px\)/)
+					.exec(transform)[1]);
+		}
+		return translateY;
+	}-*/;
+
+	public static native void setTransitionDuration(Element ele, double value) /*-{
+		ele.style.webkitTransitionDuration = "" + value + "ms";
+	}-*/;
+
+	public static native void setTransitionProperty(Element ele, String property) /*-{
+		ele.style.webkitTransitionDuration = property;
+	}-*/;
 
 }
