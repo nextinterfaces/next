@@ -77,5 +77,5 @@ http://groups.google.com/group/nextinterfaces
 ### Forum:
 http://nextinterfaces.com/forum
 
-Copyright (c) 2011 Vancouver YWebb Consulting Ltd, released under Apache License v.2.0
+Copyright (c) 2011 Vancouver Ywebb Consulting Ltd, released under Apache License v.2.0
  
