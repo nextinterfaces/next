@@ -190,7 +190,6 @@ public class XTableCell extends Composite implements IsWidget, HasClickHandlers 
 		titleLabel.setStyleName(XStyle.tableCellTitle.name());
 		((FlowPanel) _panel).add(titleLabel);
 
-		XLog.warn(">>> leftIcon " + westIcon);
 		if (westIcon != null) {
 			westIcon.addStyleName(XStyle.tableCellWestImage.name());
 			int height = westIcon.getHeight();
