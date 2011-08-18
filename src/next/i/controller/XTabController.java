@@ -38,7 +38,6 @@ public class XTabController implements EventListener {
 
 	private XTabBarController _parent;
 	private XTab _tab;
-	private boolean _suppressNextClick = false;
 	private JavaScriptObject _clickListener;
 	private IController _uiController;
 
@@ -126,13 +125,7 @@ public class XTabController implements EventListener {
 	}
 
 	private void onClick_(Event e) {
-		if (_suppressNextClick) {
-			e.stopPropagation();
-			_suppressNextClick = false;
-			// Utils.Console("click suppressed");
-		} else {
-			_parent.onTabChange(this);
-		}
+		_parent.onTabChange(this);
 	}
 
 }
