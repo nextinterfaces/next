@@ -125,7 +125,7 @@
 		<copy file="${next.demo}/war/next.css" tofile="${build.dist.dir}/hello-next/war/next.css" />
 		<copy file="${next.demo}/war/index.html" tofile="${build.dist.dir}/hello-next/war/index.html" />
 		<copy file="./LICENSE" tofile="${build.dist.dir}/LICENSE" />
-		<copy file="./README" tofile="${build.dist.dir}/README" />
+		<copy file="./README.md" tofile="${build.dist.dir}/README.md" />
 		
 		<copy file="${next.demo}/.project" tofile="${build.dist.dir}/hello-next/.project" />
 		<copy file="${next.demo}/.classpath" tofile="${build.dist.dir}/hello-next/.classpath" />
