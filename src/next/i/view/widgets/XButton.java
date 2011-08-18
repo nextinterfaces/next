@@ -25,6 +25,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
@@ -128,6 +129,12 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		DragController.get().removeDragEventsHandler(this);
 	}
 
+	@Override
+	public void onBrowserEvent(Event e) {
+		e.stopPropagation();
+		super.onBrowserEvent(e);
+	}
+
 	void setSelected(boolean isActive) {
 		setSelected_(isActive);
 	}
@@ -152,12 +159,12 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		_item.setText(0, 0, title);
 	}
 
-//	public void setHighlighted(boolean isHightLighted) {
-//		addStyleName(XStyle.highlighted.name());
-//	}
-
 	public void onDragEnd(DragEvent e) {
-		setSelected_(false);
+		new Timer() {
+			public void run() {
+				setSelected_(false);
+			}
+		}.schedule(200);
 	}
 
 	public void onDragMove(DragEvent e) {
@@ -171,7 +178,6 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 	/**
 	 * private
 	 */
-
 	private void setSelected_(boolean isActive) {
 		if (isActive) {
 			addStyleName(XStyle.selected.name());
