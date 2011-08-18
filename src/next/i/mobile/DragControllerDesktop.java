@@ -52,6 +52,7 @@ public class DragControllerDesktop extends DragController {
 	}
 
 	public void onMouseDown(Event e) {
+		//XLog.info("onMouseDown " + e.getType() + " from drag controller desktop.");
 		EventTarget target = e.getEventTarget();
 		boolean preventDefault = true;
 		if (Element.is(target)) {
@@ -84,7 +85,7 @@ public class DragControllerDesktop extends DragController {
 	@Override
 	public void onBrowserEvent(Event e) {
 		String type = e.getType();
-		// Utils.Console(type + " from drag controller desktop.");
+//		XLog.info("onBrowserEvent " + type + " from drag controller desktop.");
 		if (type.equals("mousedown")) {
 			onMouseDown(e);
 		} else if (type.equals("mousemove")) {
