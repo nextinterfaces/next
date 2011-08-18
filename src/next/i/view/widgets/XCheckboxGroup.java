@@ -19,7 +19,6 @@
 
 package next.i.view.widgets;
 
-
 import java.util.ArrayList;
 
 import next.i.XLog;
@@ -31,7 +30,6 @@ import next.i.mobile.SelectionChangedEvent;
 import next.i.mobile.SelectionChangedHandler;
 import next.i.view.MPanelBase;
 
-
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
@@ -42,6 +40,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -61,9 +60,17 @@ public class XCheckboxGroup extends MPanelBase implements HasWidgets, ClickHandl
 
 	public XCheckboxGroup(boolean isVertical) {
 		super();
+		sinkEvents(Event.ONCLICK | Event.ONTOUCHCANCEL | Event.ONTOUCHEND | Event.ONTOUCHMOVE | Event.ONTOUCHSTART);
+
 		addDomHandler(this, ClickEvent.getType());
 		setStyleName(XStyle.xcheckboxGroup.name());
 		setVertical(isVertical);
+	}
+
+	@Override
+	public void onBrowserEvent(Event e) {
+		e.stopPropagation();
+		super.onBrowserEvent(e);
 	}
 
 	@Override

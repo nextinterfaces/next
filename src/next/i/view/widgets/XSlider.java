@@ -26,6 +26,7 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -47,6 +48,8 @@ public class XSlider extends Composite implements DragEventsHandler, HasValueCha
 		initWidget(_panel);
 		setStyleName(XStyle.xslider.name());
 
+		sinkEvents(Event.ONCLICK | Event.ONTOUCHCANCEL | Event.ONTOUCHEND | Event.ONTOUCHMOVE | Event.ONTOUCHSTART);
+
 		_panel.add(_label);
 		_panel.add(_slider);
 
@@ -58,6 +61,12 @@ public class XSlider extends Composite implements DragEventsHandler, HasValueCha
 	public XSlider(int initialValue) {
 		this();
 		setValue(initialValue);
+	}
+
+	@Override
+	public void onBrowserEvent(Event e) {
+		e.stopPropagation();
+		super.onBrowserEvent(e);
 	}
 
 	@Override

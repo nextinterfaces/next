@@ -19,7 +19,6 @@
 
 package next.i.view.widgets;
 
-import next.i.XLog;
 import next.i.XStyle;
 import next.i.mobile.DragController;
 import next.i.mobile.DragEvent;
@@ -38,6 +37,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
@@ -59,9 +59,17 @@ public class XRadioButtonGroup extends MPanelBase implements HasWidgets, ClickHa
 
 	public XRadioButtonGroup(boolean isVertical) {
 		super();
+		sinkEvents(Event.ONCLICK | Event.ONTOUCHCANCEL | Event.ONTOUCHEND | Event.ONTOUCHMOVE | Event.ONTOUCHSTART);
+
 		addDomHandler(this, ClickEvent.getType());
 		setStyleName(XStyle.xradioButtonGroup.name());
 		setVertical(isVertical);
+	}
+
+	@Override
+	public void onBrowserEvent(Event e) {
+		e.stopPropagation();
+		super.onBrowserEvent(e);
 	}
 
 	@Override
@@ -133,7 +141,7 @@ public class XRadioButtonGroup extends MPanelBase implements HasWidgets, ClickHa
 			// can be safely ignored.
 		}
 
-		//XLog.warn("2 target=" + target + " targetTagName=" + targetTagName);
+		// XLog.warn("2 target=" + target + " targetTagName=" + targetTagName);
 
 		Element div = Element.as(target);
 		while (!div.getNodeName().toUpperCase().equals("SPAN") || div.getParentElement() != this.getElement()) {

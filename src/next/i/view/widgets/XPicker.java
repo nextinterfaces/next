@@ -28,6 +28,7 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -60,16 +61,18 @@ public class XPicker extends Composite implements FocusHandler, BlurHandler, Cha
 		xbtn.add(jqPicker);
 		xbtn.add(_listBox);
 
-		// if (!Utils.isIOS()) {
-		// _panel.add(new HTMLPanel(""));
-		// _panel.add(new HTMLPanel(""));
-		// _panel.add(new HTMLPanel(""));
-		// }
+		sinkEvents(Event.ONCLICK | Event.ONTOUCHCANCEL | Event.ONTOUCHEND | Event.ONTOUCHMOVE | Event.ONTOUCHSTART);
 
 		setStyleName(XStyle.xpicker.name());
 		_listBox.addFocusHandler(this);
 		_listBox.addBlurHandler(this);
 		_listBox.addChangeHandler(this);
+	}
+
+	@Override
+	public void onBrowserEvent(Event e) {
+		e.stopPropagation();
+		super.onBrowserEvent(e);
 	}
 
 	@Override

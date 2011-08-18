@@ -24,6 +24,7 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 
@@ -45,12 +46,20 @@ public class XSwitch extends Composite implements DragEventsHandler, HasValueCha
 		initWidget(_html);
 		_html.setStyleName(XStyle.xswitch.name());
 
+		sinkEvents(Event.ONCLICK | Event.ONTOUCHCANCEL | Event.ONTOUCHEND | Event.ONTOUCHMOVE | Event.ONTOUCHSTART);
+
 		_switched = isOn;
 		if (isOn) {
 			_html.setStyleName(XStyle.xswitch.name());
 		} else {
 			_html.setStyleName(XStyle.xswitch.name() + " " + "off");
 		}
+	}
+
+	@Override
+	public void onBrowserEvent(Event e) {
+		e.stopPropagation();
+		super.onBrowserEvent(e);
 	}
 
 	@Override
