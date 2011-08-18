@@ -77,9 +77,8 @@ public class Utils {
 		if (ele == null) {
 			return false;
 		}
-		String FromControls = "BUTTON INPUT SELECT TEXTAREA";
 		String nodeName = ele.getNodeName().toUpperCase();
-		return FromControls.contains(nodeName) || isHtmlFormControl(ele.getParentElement());
+		return "BUTTON INPUT SELECT TEXTAREA".contains(nodeName) || isHtmlFormControl(ele.getParentElement());
 	}
 
 	public native static Element getActiveElement() /*-{
