@@ -1,6 +1,19 @@
-/** This is a modified version of gwtmobile-ui class.
+/* 
+ * Copyright 2011 Vancouver Ywebb Consulting Ltd
  * 
- * License bellow:
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * --------
+ * This class contains modified sources from gwtmobile-ui project. 
  * 
  * Copyright (c) 2010 Zhihua (Dennis) Jiang
  * 
@@ -16,9 +29,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package next.i.mobile;
-
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +37,6 @@ import java.util.List;
 
 import next.i.XLog;
 import next.i.util.Utils;
-
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -104,7 +114,8 @@ public abstract class DragController implements EventListener {
 		}
 	}
 
-	// TODO: May need an onPreStart event to indicate that mouse is down, but no movement yet,
+	// TODO: May need an onPreStart event to indicate that mouse is down, but no
+	// movement yet,
 	// so onStart event can actually mean drag is indeed started.
 	protected void onStart(Event e, Point p) {
 		_isDown = true;
@@ -114,7 +125,8 @@ public abstract class DragController implements EventListener {
 		_currDragTimeStamp = _lastDragTimeStamp;
 		_lastDragPos.clone(p);
 		_currDragPos.clone(p);
-		DragEvent dragEvent = new DragEvent(e, DragEvent.Type.Start, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y() - _currDragPos.Y());
+		DragEvent dragEvent = new DragEvent(e, DragEvent.Type.Start, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
+				- _currDragPos.Y());
 		fireDragEvent(dragEvent);
 
 	}
@@ -126,7 +138,8 @@ public abstract class DragController implements EventListener {
 				return;
 			}
 			_suppressNextClick = true;
-			DragEvent dragEvent = new DragEvent(e, DragEvent.Type.Move, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y() - _currDragPos.Y());
+			DragEvent dragEvent = new DragEvent(e, DragEvent.Type.Move, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
+					- _currDragPos.Y());
 			fireDragEvent(dragEvent);
 			_lastDragPos.clone(_currDragPos);
 			_lastDragTimeStamp = _currDragTimeStamp;
@@ -139,7 +152,8 @@ public abstract class DragController implements EventListener {
 	protected void onEnd(Event e, Point p) {
 		if (_isDown) {
 			_isDown = false;
-			DragEvent dragEvent = new DragEvent(e, DragEvent.Type.End, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y() - _currDragPos.Y());
+			DragEvent dragEvent = new DragEvent(e, DragEvent.Type.End, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
+					- _currDragPos.Y());
 			fireDragEvent(dragEvent);
 			double distanceX = p.X() - _lastDragPos.X();
 			double distanceY = p.Y() - _lastDragPos.Y();
