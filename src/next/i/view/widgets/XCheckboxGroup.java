@@ -1,6 +1,19 @@
-/** This is a modified version of gwtmobile-ui class.
+/* 
+ * Copyright 2011 Vancouver Ywebb Consulting Ltd
  * 
- * License bellow:
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * --------
+ * This class contains modified sources from gwtmobile-ui project. 
  * 
  * Copyright (c) 2010 Zhihua (Dennis) Jiang
  * 
@@ -16,7 +29,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package next.i.view.widgets;
 
 import java.util.ArrayList;
@@ -93,7 +105,7 @@ public class XCheckboxGroup extends MPanelBase implements HasWidgets, ClickHandl
 	public void onClick(ClickEvent e) {
 		final EventTarget target = e.getNativeEvent().getEventTarget();
 		String targetTagName = ((Element) target.cast()).getTagName().toUpperCase();
-		XLog.warn("onClick target=" + target + " targetTagName=" + targetTagName);
+		//XLog.warn("onClick target=" + target + " targetTagName=" + targetTagName);
 		if (targetTagName.equals("LABEL")) {
 			return; // if check box label is click, another (simulated) click event
 			// with
