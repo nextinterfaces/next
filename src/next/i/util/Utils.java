@@ -1,6 +1,19 @@
-/** This is a modified version of gwtmobile-ui class.
+/* 
+ * Copyright 2011 Vancouver Ywebb Consulting Ltd
  * 
- * License bellow:
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * --------
+ * This class contains modified sources from gwtmobile-ui project. 
  * 
  * Copyright (c) 2010 Zhihua (Dennis) Jiang
  * 
@@ -16,7 +29,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package next.i.util;
 
 import next.i.XLog;
@@ -65,7 +77,7 @@ public class Utils {
 	// The url loaded by this method can be intercepted by
 	// WebViewClient.shouldOverrideUrlLoading
 	public static void loadUrl(String url) {
-//		Window.open(url, "_tab", "");
+		// Window.open(url, "_tab", "");
 		Anchor a = new Anchor("", url, "_tab");
 		RootLayoutPanel.get().add(a);
 		NativeEvent event = Document.get().createClickEvent(1, 1, 1, 1, 1, false, false, false, false);
@@ -91,16 +103,6 @@ public class Utils {
 
 	public static native void setTranslateX(Element ele, double value) /*-{
 		ele.style.webkitTransform = "translate3d(" + value + "px, 0px, 0px)";
-	}-*/;
-
-	public static native int getTranslateX(Element ele) /*-{
-		var transform = ele.style.webkitTransform;
-		var translateX = 0;
-		if (transform && transform !== "") {
-			translateX = parseInt((/translate3d\((\-?.*)px, 0px, 0px\)/)
-					.exec(transform)[1]);
-		}
-		return translateX;
 	}-*/;
 
 	public static native double getMatrixY(Element ele) /*-{

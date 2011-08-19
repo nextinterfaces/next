@@ -73,6 +73,16 @@ public class FxUtil {
 		ele.style.webkitTransform = "translate3d(0px, " + value + "px ,0px)";
 	}-*/;
 
+	public static native int getTranslateX(Element ele) /*-{
+		var transform = ele.style.webkitTransform;
+		var translateX = 0;
+		if (transform && transform !== "") {
+			translateX = parseInt((/translate3d\((\-?.*)px, 0px, 0px\)/)
+					.exec(transform)[1]);
+		}
+		return translateX;
+	}-*/;
+
 	public static native int getTranslateY(Element ele) /*-{
 		var transform = ele.style.webkitTransform;
 		var translateY = 0;
@@ -89,6 +99,13 @@ public class FxUtil {
 
 	public static native void setTransitionProperty(Element ele, String property) /*-{
 		ele.style.webkitTransitionDuration = property;
+	}-*/;
+	
+
+	public static native double getMatrixX(Element ele) /*-{
+		var matrix = new WebKitCSSMatrix(
+				window.getComputedStyle(ele).webkitTransform);
+		return matrix.a;
 	}-*/;
 
 }
