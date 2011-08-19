@@ -1,8 +1,21 @@
-/** This is a modified version of gwtmobile-ui class.
+/* 
+ * Copyright 2011 Vancouver Ywebb Consulting Ltd
  * 
- * License bellow:
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  * 
- * Copyright (c) 2011 Zhihua (Dennis) Jiang
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * --------
+ * This class contains modified sources from gwtmobile-ui project. 
+ * 
+ * Copyright (c) 2010 Zhihua (Dennis) Jiang
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,7 +29,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package next.i.view;
 
 import java.util.Iterator;
@@ -28,12 +40,12 @@ import com.google.gwt.user.client.ui.Widget;
 public class Slide extends MWidgetBase implements HasWidgets {
 
 	protected FlowPanel _panel = new FlowPanel();
-	
+
 	public Slide() {
 		initWidget(_panel);
 		setStyleName("Slide");
 	}
-	
+
 	@Override
 	public void add(Widget w) {
 		_panel.add(w);
@@ -42,7 +54,7 @@ public class Slide extends MWidgetBase implements HasWidgets {
 	@Override
 	public void clear() {
 		_panel.clear();
-		
+
 	}
 
 	@Override
@@ -54,5 +66,5 @@ public class Slide extends MWidgetBase implements HasWidgets {
 	public boolean remove(Widget w) {
 		return _panel.remove(w);
 	}
-	
+
 }
