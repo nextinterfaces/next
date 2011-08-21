@@ -174,7 +174,10 @@ public abstract class DragController implements EventListener {
 			} else if (speed < -4) {
 				speed = -4;
 			}
+			//XLog.info("onEnd...." + speed);
+			
 			if (Math.abs(speed) > 0.2) {
+				//XLog.info("onEnd....");
 				SwipeEvent swipeEvent = new SwipeEvent(e, swipeType, speed);
 				fireSwipeEvent(swipeEvent);
 			}

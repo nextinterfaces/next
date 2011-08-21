@@ -33,7 +33,7 @@ public class FxUtil {
 		ele.getStyle().setOpacity(0);
 		setTransitionProperty(ele, "opacity");
 		setTransitionDuration(ele, 300);
-		
+
 		obj.setVisible(true);
 
 		new Timer() {
@@ -56,14 +56,14 @@ public class FxUtil {
 			public void run() {
 				ele.getStyle().setOpacity(0);
 
-				new Timer() {
-					public void run() {
-						obj.setVisible(false);
-						if (onClose != null) {
+				if (onClose != null) {
+					new Timer() {
+						public void run() {
+							// obj.setVisible(false);
 							onClose.execute();
 						}
-					}
-				}.schedule(290);
+					}.schedule(290);
+				}
 
 			}
 		}.schedule(10);
@@ -98,9 +98,8 @@ public class FxUtil {
 	}-*/;
 
 	public static native void setTransitionProperty(Element ele, String property) /*-{
-		ele.style.webkitTransitionDuration = property;
+		ele.style.webkitTransitionProperty = property;
 	}-*/;
-	
 
 	public static native double getMatrixX(Element ele) /*-{
 		var matrix = new WebKitCSSMatrix(

@@ -97,6 +97,7 @@ public class XPopup extends PopupPanel {
 			@Override
 			public void execute() {
 				XPopup.super.hide(autoClosed);
+				XPopup.super.setVisible(false);
 			}
 		});
 	}

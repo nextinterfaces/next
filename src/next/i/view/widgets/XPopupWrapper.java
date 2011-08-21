@@ -41,6 +41,7 @@ public class XPopupWrapper {
 				@Override
 				public void execute() {
 					OverlayPanel.super.hide(autoClosed);
+					OverlayPanel.super.setVisible(false);
 				}
 			});
 		}
