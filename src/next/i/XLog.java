@@ -46,7 +46,7 @@ public class XLog {
 		//			$wnd.console.log(msg);
 		//		}
 		//		else 
-		var logElem = $doc.getElementById('log');
+		var logElem = $doc.getElementById('xlog');
 		if (logElem) {
 			logElem.innerHTML = msg + '<br/>' + logElem.innerHTML;
 		} else {
