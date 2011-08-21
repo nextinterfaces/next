@@ -47,68 +47,40 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 	 * Specifies the style of a button.
 	 */
 	public static enum XButtonType {
-		Rounded, 
-		Shadow,
-		Custom, 
-		Disclosure, 
-		InfoLight, 
-		InfoDark, 
-		Add,
-		Navigation
+		Rounded("Rounded"), 
+		Shadow("Shadow"), 
+		Navigation("Navigation"), 
+		NavigationBlue("Blue"), 
+		NavigationRed("Red"), 
+		NavigationBlack("Black"), 
+		Image("Image")
+		;
+		private String css;
+    XButtonType(String css) {
+        this.css = css;
+    }
+    
+    public String css(){
+    	return css;
+    }
 	}
-
-	private XButtonType buttonType;
-
-	// Configuring Button Title
-	private String titleLabel;
-	private boolean reversesTitleShadowWhenHighlighted;
-	// Ð setTitle:forState:
-	// Ð setTitleColor:forState:
-	// Ð setTitleShadowColor:forState:
-	// Ð titleColorForState:
-	// Ð titleForState:
-	// Ð titleShadowColorForState:
-
-	// Configuring Button Images
-	private boolean adjustsImageWhenHighlighted;
-	private boolean adjustsImageWhenDisabled;
-	private boolean showsTouchWhenHighlighted;
-
-	// Ð backgroundImageForState:
-	// Ð imageForState:
-	// Ð setBackgroundImage:forState:
-	// Ð setImage:forState:
-	// //Configuring Edge Insets
-	// contentEdgeInsets property
-	// titleEdgeInsets property
-	// imageEdgeInsets property
-	// //Getting the Current State
-	// currentTitle property
-	// currentTitleColor property
-	// currentTitleShadowColor property
-	// currentImage property
-	// currentBackgroundImage property
-	// imageView property
-	// //Getting Dimensions
-	// Ð backgroundRectForBounds:
-	// Ð contentRectForBounds:
-	// Ð titleRectForContentRect:
-	// Ð imageRectForContentRect:
+	
+	private String title;
 
 	private FlexTable _item;
 	private boolean _hasClickHandler = false;
 	private boolean enabled = true;
 
 	public XButton(String title) {
-		this(title, XButtonType.Rounded, true);
+		this(title, XButtonType.Rounded);
 	}
 
 	public XButton(String title, XButtonType buttonType) {
 		this(title, buttonType, true);
 	}
 
-	public XButton(String title, XButtonType buttonType, boolean iconOrientationLeft) {
-		XButton_(buttonType, iconOrientationLeft);
+	public XButton(String title, XButtonType buttonType, boolean orientation) {
+		XButton_(buttonType, orientation);
 		setTitle(title);
 	}
 
@@ -156,7 +128,12 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 	}
 
 	public void setTitle(String title) {
+		this.title = title;
 		_item.setText(0, 0, title);
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 	public void onDragEnd(DragEvent e) {
@@ -203,24 +180,25 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		cf.setStyleName(0, 1, "right");
 
 		cf.setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		addStyleName(buttonType.name());
-
-		if (buttonType == XButtonType.Rounded) {
-
-		} else if (buttonType == XButtonType.Custom) {
-
-		} else if (buttonType == XButtonType.Disclosure || buttonType == XButtonType.InfoDark
-				|| buttonType == XButtonType.InfoLight || buttonType == XButtonType.Add) {
-			if (iconOrientationLeft) {
-				_item.getElement().getStyle().setProperty("paddingLeft", "30px");
-				_item.getElement().getStyle().setProperty("backgroundPosition", "left center");
-
-			} else {
-				_item.getElement().getStyle().setProperty("paddingRight", "30px");
-				_item.getElement().getStyle().setProperty("backgroundPosition", "right center");
-			}
-
+		
+		if(buttonType == XButtonType.NavigationRed || buttonType == XButtonType.NavigationBlue || buttonType == XButtonType.NavigationBlack){
+			addStyleName(XButtonType.Navigation.css() + " " + buttonType.css());
+			
+		} else {
+			addStyleName(buttonType.css());			
 		}
+
+
+	if (buttonType == XButtonType.Image) {
+		if (iconOrientationLeft) {
+			_item.getElement().getStyle().setProperty("paddingLeft", "30px");
+			_item.getElement().getStyle().setProperty("backgroundPosition", "left center");
+
+		} else {
+			_item.getElement().getStyle().setProperty("paddingRight", "30px");
+			_item.getElement().getStyle().setProperty("backgroundPosition", "right center");
+		}
+	}
 	}
 
 }
