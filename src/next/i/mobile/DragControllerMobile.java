@@ -93,10 +93,18 @@ public class DragControllerMobile extends DragController {
 	}
 
 	public void onTouchEnd(TouchEvent e) {
+		EventTarget target = e.getEventTarget();
+		if (Element.is(target)) {
+			Element ele = Element.as(target);
+			// fixing "iOS eats native SELECT event and propagates the dragEvent instead".
+			if("SELECT".equals(ele.getNodeName())){
+				return;
+			}
+		}
+		
 		e.preventDefault();
 		e.stopPropagation();
 		if (!_touchMoving) {
-			XLog.info("fireclick ");
 			fireClick(e);
 		}
 		_touchMoving = false;
