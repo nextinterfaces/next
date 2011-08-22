@@ -60,6 +60,7 @@ public class XProgress extends Composite {
 		_progress.setStyleName("bar");
 
 		_progress.setHTML("<div class=right></div><div class=left></div>");
+		reset();
 	}
 
 	public XProgress(int initialValue) {
@@ -69,6 +70,7 @@ public class XProgress extends Composite {
 
 	public void reset() {
 		// FIXME doesn't remove -webkit-transition-property: width;
+		// causing progress to animate backwards on restart
 		css_().setProperty("display", "none");
 		css_().clearProperty("webkitTransitionProperty");
 		css_().setProperty("webkitTransitionProperty", "height");
