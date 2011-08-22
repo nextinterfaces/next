@@ -33,7 +33,6 @@ package next.i.view.widgets;
 
 import java.util.ArrayList;
 
-import next.i.XLog;
 import next.i.XStyle;
 import next.i.mobile.DragController;
 import next.i.mobile.DragEvent;
