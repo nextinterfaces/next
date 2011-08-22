@@ -20,6 +20,7 @@ import next.i.mobile.DragController;
 import next.i.mobile.DragEvent;
 import next.i.mobile.DragEventsHandler;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -56,15 +57,16 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		Image("Image")
 		;
 		private String css;
-    XButtonType(String css) {
-        this.css = css;
-    }
-    
-    public String css(){
-    	return css;
-    }
+
+		XButtonType(String css) {
+			this.css = css;
+		}
+
+		public String css() {
+			return css;
+		}
 	}
-	
+
 	private String title;
 
 	private FlexTable _item;
@@ -79,8 +81,13 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		this(title, buttonType, true);
 	}
 
+	public XButton(String title, XButtonType buttonType, String imageUrl, String imagePressedUrl, boolean orientation) {
+		XButton_(buttonType, orientation, imageUrl, imagePressedUrl);
+		setTitle(title);
+	}
+
 	public XButton(String title, XButtonType buttonType, boolean orientation) {
-		XButton_(buttonType, orientation);
+		XButton_(buttonType, orientation, null, null);
 		setTitle(title);
 	}
 
@@ -163,7 +170,7 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		}
 	}
 
-	private void XButton_(XButtonType buttonType, boolean iconOrientationLeft) {
+	private void XButton_(XButtonType buttonType, boolean iconOrientationLeft, String imageUrl, String imagePressedUrl) {
 		_item = new FlexTable();
 		_item.setCellPadding(0);
 		_item.setCellSpacing(0);
@@ -180,25 +187,29 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		cf.setStyleName(0, 1, "right");
 
 		cf.setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		
-		if(buttonType == XButtonType.NavigationRed || buttonType == XButtonType.NavigationBlue || buttonType == XButtonType.NavigationBlack){
+
+		if (buttonType == XButtonType.NavigationRed || buttonType == XButtonType.NavigationBlue
+				|| buttonType == XButtonType.NavigationBlack) {
 			addStyleName(XButtonType.Navigation.css() + " " + buttonType.css());
-			
-		} else {
-			addStyleName(buttonType.css());			
-		}
-
-
-	if (buttonType == XButtonType.Image) {
-		if (iconOrientationLeft) {
-			_item.getElement().getStyle().setProperty("paddingLeft", "30px");
-			_item.getElement().getStyle().setProperty("backgroundPosition", "left center");
 
 		} else {
-			_item.getElement().getStyle().setProperty("paddingRight", "30px");
-			_item.getElement().getStyle().setProperty("backgroundPosition", "right center");
+			addStyleName(buttonType.css());
 		}
-	}
+
+		if (buttonType == XButtonType.Image) {
+			Style s = _item.getElement().getStyle();
+			// TODO fix pressed state
+			s.setProperty("backgroundImage", "url(" + imageUrl + ")");
+
+			if (iconOrientationLeft) {
+				s.setProperty("paddingLeft", "30px");
+				s.setProperty("backgroundPosition", "left center");
+
+			} else {
+				s.setProperty("paddingRight", "30px");
+				s.setProperty("backgroundPosition", "right center");
+			}
+		}
 	}
 
 }
