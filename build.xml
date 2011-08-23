@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
 -->
-<project basedir="." default="dist" name="next">
+<project basedir="." default="compile" name="next">
 
 	<property file="build.properties" />
 
@@ -116,7 +116,28 @@
 		<jar destfile="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" basedir="${build.src.dir}" excludes="**/*.launch">
 		</jar>
 
-		<!-- <copy file="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" tofile="${next.demo}/war/WEB-INF/lib/${product.name}.jar" /> -->
+		<copy file="${build.dist.dir}/hello-next/war/WEB-INF/${product.name}.jar" tofile="${build.root.dir}/${product.name}.jar" />
+		
+		<echo>
+-----------------------------------------------------------------------------------------------
+|
+|   NEXT build completed with success.      
+|
+|   Now... How the damn thing works?
+|            
+|   1. Copy ${basedir}/${build.root.dir}/${product.name}.jar    
+|   2. Put "${product.name}.jar" under your GWT-PROJECT/war/WEB-INF/lib or someplace convenient  
+|   3. Add "${product.name}.jar" to your classpath                
+|   4. Start making next generation mobile UI                   
+|            
+|   Detail documentation at http://nextinterfaces.com/start     
+|            
+|   NEXT starter project can be downloaded from http://nextinterfaces.com/download
+|            
+|   Have Fun!
+|
+-----------------------------------------------------------------------------------------------
+		</echo>
 
 	</target>
 
@@ -182,16 +203,25 @@
 	</target>
 
 	<!-- ===================================================================
-			target: javadoc              
+			target: javadoc. This is custom build target. Don't use.
 	==================================================================== -->
 	<target name="javadoc">
+
+		<echo>
+-----------------------------------------------------------------------------------------------
+|
+|   This is custom build target. Don't use!
+|
+-----------------------------------------------------------------------------------------------
+		</echo>
+		
 		<javadoc excludepackagenames="
 				next.i.mobile,
 				next.i.util,
 				next.i.view.incubator,
 				next.i.anime,
 			" 
-			classpath="/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/validation-api-1.0.0.GA-sources.jar:/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/gwt-dev.jar:/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/gwt-user.jar:/Users/anna/_tools/eclipse_gwt_helios/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r36v201104261928/gwt-2.3.0/validation-api-1.0.0.GA.jar" 
+			classpath="${gwt.classpath}" 
 			destdir="${build.dist.dir}/api" 
 			packagenames="
 				next.i,
@@ -227,9 +257,17 @@
 	</target>
 
 	<!-- ===================================================================
-			target: dist              
+			target: dist. This is custom build target. Don't use.
 	==================================================================== -->
 	<target name="dist" depends="compile, javadoc, zip">
+
+		<echo>
+-----------------------------------------------------------------------------------------------
+|
+|   This is custom build target. Don't use!
+|
+-----------------------------------------------------------------------------------------------
+		</echo>
 
 		<copy file="${build.dist.dir}/${product.name}-${product.version}.${build.number}.zip" 
 					tofile="dist/${product.name}-${product.version}.${build.number}.zip" />
