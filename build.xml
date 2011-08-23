@@ -126,9 +126,12 @@
 |   Now... How the damn thing works?
 |            
 |   1. Copy ${basedir}/${build.root.dir}/${product.name}.jar    
-|   2. Put "${product.name}.jar" under your GWT-PROJECT/war/WEB-INF/lib or someplace convenient  
-|   3. Add "${product.name}.jar" to your classpath                
-|   4. Start making next generation mobile UI                   
+|   2. Put "${product.name}.jar" under your [YOUR-GWT-PROJECT/war/WEB-INF/lib] or someplace convenient  
+|   3. Add "${product.name}.jar" to [YOUR-GWT-PROJECT] classpath 
+|   4. You will also need "next.css" and "index.html". Find them here
+|      https://github.com/nextinterfaces/next-demo/tree/master/war
+|   5. Put them here [YOUR-GWT-PROJECT/war/next.css] and here [YOUR-GWT-PROJECT/war/index.html]
+|   6. You are ready to rock!                   
 |            
 |   Detail documentation at http://nextinterfaces.com/start     
 |            
