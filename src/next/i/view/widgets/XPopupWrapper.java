@@ -10,6 +10,7 @@ package next.i.view.widgets;
 
 import next.i.XStyle;
 import next.i.util.FxUtil;
+import next.i.util.Utils;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -50,7 +51,13 @@ public class XPopupWrapper {
 		public void show() {
 			setVisible(false);
 			super.show();
-			FxUtil.fadeIn(this);
+
+			if (Utils.isAndroid()) {
+				this.setVisible(true);
+				this.getElement().getStyle().setOpacity(1);
+			} else {
+				FxUtil.fadeIn(this);
+			}
 		}
 
 	}
