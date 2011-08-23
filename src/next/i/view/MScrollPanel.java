@@ -40,7 +40,6 @@ import next.i.mobile.SwipeEventsHandler;
 import next.i.util.FxUtil;
 import next.i.util.Utils;
 
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -96,7 +95,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 
 	public void setScrollPosition(double pos) {
 		if (_hasTextBox) {
-			setStyleTop(pos);
+			FxUtil.setStyleTop(this, pos);
 		} else {
 			Element element = getWidget().getElement();
 			FxUtil.setTranslateY(element, pos);
@@ -106,7 +105,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 
 	public double getScrollPosition() {
 		if (_hasTextBox) {
-			return getStyleTop();
+			return FxUtil.getStyleTop(this);
 		} else {
 			Element element = getWidget().getElement();
 			return FxUtil.getTranslateY(element);
@@ -115,7 +114,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 
 	public double getScrollToPosition() {
 		if (_hasTextBox) {
-			return getStyleTop();
+			return FxUtil.getStyleTop(this);
 		} else {
 			Element element = getWidget().getElement();
 			return Utils.getMatrixY(element);
@@ -229,21 +228,6 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 	public void add(Widget w) {
 		assert _panel.getWidgetCount() == 0 : "Can only add one widget to MScrollPanel.";
 		super.add(w);
-	}
-
-	private double getStyleTop() {
-		com.google.gwt.dom.client.Style style = getWidget().getElement().getStyle();
-		String top = style.getTop();
-		if (top.isEmpty()) {
-			return 0;
-		} else {
-			return Double.parseDouble(top.replace("px", ""));
-		}
-	}
-
-	private void setStyleTop(double top) {
-		com.google.gwt.dom.client.Style style = getWidget().getElement().getStyle();
-		style.setTop(top, Unit.PX);
 	}
 
 }

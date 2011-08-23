@@ -55,13 +55,13 @@ public class Utils {
 		return callBack;
 	}-*/;
 
-	public static native void addEventListenerOnce(Element ele, String event, boolean capture, EventListener listener) /*-{
-		var callBack = function(e) {
-			ele.removeEventListener(event, callBack, capture);
-			listener.@com.google.gwt.user.client.EventListener::onBrowserEvent(Lcom/google/gwt/user/client/Event;)(e);
-		};
-		ele.addEventListener(event, callBack, capture);
-	}-*/;
+//	public static native void addEventListenerOnce(Element ele, String event, boolean capture, EventListener listener) /*-{
+//		var callBack = function(e) {
+//			ele.removeEventListener(event, callBack, capture);
+//			listener.@com.google.gwt.user.client.EventListener::onBrowserEvent(Lcom/google/gwt/user/client/Event;)(e);
+//		};
+//		ele.addEventListener(event, callBack, capture);
+//	}-*/;
 
 	public static native void removeEventListener(Element ele, String event, boolean capture, JavaScriptObject callBack) /*-{
 		ele.removeEventListener(event, callBack, capture);

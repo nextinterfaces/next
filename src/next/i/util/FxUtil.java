@@ -16,14 +16,31 @@
 package next.i.util;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Animation utils.
  */
 public class FxUtil {
+
+	public static double getStyleTop(Widget w) {
+		com.google.gwt.dom.client.Style style = w.getElement().getStyle();
+		String top = style.getTop();
+		if (top.isEmpty()) {
+			return 0;
+		} else {
+			return Double.parseDouble(top.replace("px", ""));
+		}
+	}
+
+	public static void setStyleTop(Widget w, double top) {
+		com.google.gwt.dom.client.Style style = w.getElement().getStyle();
+		style.setTop(top, Unit.PX);
+	}
 
 	public static void fadeIn(UIObject obj) {
 
