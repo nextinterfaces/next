@@ -27,7 +27,7 @@ public class XPopupWrapper {
 		OverlayPanel() {
 			super(false, true);
 			addStyleName(XStyle.xpopup.name() + "-bg");
-			sinkEvents(Event.ONCLICK);
+			sinkEvents(Event.ONCLICK | Event.ONTOUCHCANCEL | Event.ONTOUCHEND | Event.ONTOUCHMOVE | Event.ONTOUCHSTART);
 		}
 
 		@Override

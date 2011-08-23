@@ -91,7 +91,7 @@ public class XSwitch extends Composite implements DragEventsHandler, HasValueCha
 
 	@Override
 	public void onDragEnd(DragEvent e) {
-		DragController.get().releaseCapture(this);
+		DragController.get().releaseDragCapture(this);
 	}
 
 	private void switch_() {
