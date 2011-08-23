@@ -31,7 +31,6 @@
  */
 package next.i.mobile;
 
-import next.i.XLog;
 import next.i.util.Utils;
 
 import com.google.gwt.dom.client.Element;
