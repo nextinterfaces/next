@@ -12,22 +12,6 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- * --------
- * This class contains modified sources from gwtmobile-ui project. 
- * 
- * Copyright (c) 2010 Zhihua (Dennis) Jiang
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
  */
 package next.i.view;
 
@@ -128,6 +112,7 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 
 	@Override
 	public void onDragStart(DragEvent e) {
+		// XLog.info("{} onDragStart...");
 		// FIXME matrix is wrong
 		double matrix = getScrollToPosition();
 		double current = getScrollPosition();
@@ -136,7 +121,7 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 			// scroll on going
 			double diff = current - matrix;
 			double offset = diff > 2 ? 2 : diff > -2 ? diff : -2;
-//			setScrollPosition(matrix + offset);
+			// setScrollPosition(matrix + offset);
 			DragController.get().suppressNextClick();
 		}
 	}
@@ -167,11 +152,15 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 		} else {
 			current += e.OffsetX;
 		}
+		// XLog.info("current: " + current + ", e.OffsetX: " + e.OffsetX +
+		// ", e.OffsetY: " + e.OffsetY + ", e.X: " + e.X
+		// + ", e.Y: " + e.Y);
 		setScrollPosition(current);
 	}
 
 	@Override
 	public void onDragEnd(DragEvent e) {
+		// XLog.info("{} onDragEnd...");
 		Element widgetEle = getWidget().getElement();
 		double current = getScrollPosition();
 		if (current == 0) {
