@@ -32,9 +32,8 @@ public class XFlexTable extends FlexTable {
 			getElement().getStyle().setProperty("height", height);
 		}
 		if (background != null) {
-
+			getElement().getStyle().setProperty("background", background);
 		}
-		getElement().getStyle().setProperty("background", background);
 	}
 
 	public void addWidgets(Widget... widgets) {
