@@ -15,7 +15,6 @@
  */
 package next.i.controller;
 
-
 import java.util.List;
 
 import next.i.XStyle;
@@ -70,6 +69,11 @@ public class XTableController extends XController {
 		TableController_(style, dataSource);
 	}
 
+	@Override
+	public Scroll getScrollOrientation() {
+		return XController.Scroll.VERTICAL;
+	}
+
 	public void initDataSource(TableData dataSource) {
 		initDataSource_(dataSource);
 	}
@@ -119,7 +123,7 @@ public class XTableController extends XController {
 			for (int i = 0; i < len; i++) {
 				CellData data = list.get(i);
 				assert data.getTextWidgets().length > 0 : "CellData must contain at least one textWidget or title";
-//				Widget titleWidget = data.getTextWidgets()[0];
+				// Widget titleWidget = data.getTextWidgets()[0];
 				XTableCell cell = new XTableCell(i, this, data);
 				_view.addItem(cell);
 			}
@@ -159,7 +163,7 @@ public class XTableController extends XController {
 
 	@Override
 	public IsWidget getViewContent() {
-//		Window.alert("TableController_getViewContent");
+		// Window.alert("TableController_getViewContent");
 		return null;
 	}
 

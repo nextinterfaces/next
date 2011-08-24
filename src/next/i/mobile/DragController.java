@@ -70,7 +70,6 @@ public abstract class DragController implements EventListener {
 	protected static DragController INSTANCE = GWT.create(DragController.class);
 
 	DragController() {
-		XLog.info("New DragController instance created");
 		init();
 	}
 
@@ -111,7 +110,7 @@ public abstract class DragController implements EventListener {
 		if (_suppressNextClick) {
 			e.stopPropagation();
 			_suppressNextClick = false;
-			XLog.info("click suppressed");
+			// XLog.info("click suppressed");
 		}
 	}
 
@@ -175,10 +174,10 @@ public abstract class DragController implements EventListener {
 			} else if (speed < -4) {
 				speed = -4;
 			}
-			//XLog.info("onEnd...." + speed);
-			
+			// XLog.info("onEnd...." + speed);
+
 			if (Math.abs(speed) > 0.2) {
-				//XLog.info("onEnd....");
+				// XLog.info("onEnd....");
 				SwipeEvent swipeEvent = new SwipeEvent(e, swipeType, speed);
 				fireSwipeEvent(swipeEvent);
 			}

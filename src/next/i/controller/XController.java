@@ -17,9 +17,11 @@ package next.i.controller;
 
 import next.i.view.IView;
 import next.i.view.MPanelBase;
+import next.i.view.XHorizontalScrollView;
 import next.i.view.XNavigationBar;
 import next.i.view.XNavigationView;
 import next.i.view.XVerticalScrollView;
+import next.i.view.XView;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Element;
@@ -66,16 +68,23 @@ import com.google.gwt.user.client.ui.IsWidget;
 public abstract class XController implements IController {
 
 	private XNavigationBar _navigationBar;
-	private XVerticalScrollView _view;
+	private IView _view;
 	private String _title;
 	private int _id;
 	private XNavigationView _navigation;
 	private XNavigationController _navigationController;
 	private IsWidget viewContent;
 
+	public static enum Scroll {
+		VERTICAL, // default
+		HORIZONTAL, DRAGGABLE, NO_SCROLL
+	}
+
 	public XController() {
 		XController_();
 	}
+
+	abstract public Scroll getScrollOrientation();
 
 	void register(XNavigationController navigationController) {
 		// if (view != null) {
@@ -91,7 +100,22 @@ public abstract class XController implements IController {
 
 	public IView getView() {
 		if (_view == null) {
-			_view = new XVerticalScrollView();
+			if (getScrollOrientation() == Scroll.VERTICAL) {
+				_view = new XVerticalScrollView();
+
+			} else if (getScrollOrientation() == Scroll.HORIZONTAL) {
+				_view = new XHorizontalScrollView();
+
+			} else if (getScrollOrientation() == Scroll.DRAGGABLE) {
+				_view = new XVerticalScrollView(); // TODO
+
+			} else if (getScrollOrientation() == Scroll.NO_SCROLL) {
+				_view = new XView();
+
+			} else {
+				_view = new XVerticalScrollView();
+
+			}
 		}
 		return _view;
 	}
@@ -228,7 +252,8 @@ public abstract class XController implements IController {
 					IsWidget w = getViewContent();
 					if (w != null) {
 						XController.this.viewContent = w;
-						((MPanelBase)getView()).add(w.asWidget());
+						// TODO casting doesn't seem right
+						((MPanelBase) getView()).add(w.asWidget());
 					}
 				}
 				getNavigationBar().repaint();
