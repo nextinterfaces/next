@@ -101,15 +101,9 @@ public class Utils {
 		return Document.get().getDocumentElement().getClassName().contains("WVGA");
 	}
 
-	public static native void setTranslateX(Element ele, double value) /*-{
-		ele.style.webkitTransform = "translate3d(" + value + "px, 0px, 0px)";
-	}-*/;
-
-	public static native double getMatrixY(Element ele) /*-{
-		var matrix = new WebKitCSSMatrix(
-				window.getComputedStyle(ele).webkitTransform);
-		return matrix.f;
-	}-*/;
+//	public static native void setTranslateX(Element ele, double value) /*-{
+//		ele.style.webkitTransform = "translate3d(" + value + "px, 0px, 0px)";
+//	}-*/;
 
 	public static native int getHeight(Element ele) /*-{
 		return parseInt($doc.defaultView.getComputedStyle(ele, "")

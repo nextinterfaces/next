@@ -36,7 +36,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <img class='ai' src='../../../resources/XTableView.png' />
  * </p>
  */
-public class XTableView extends XScrollView {
+public class XTableView extends XVerticalScrollView {
 
 	private FlowPanel _panel;
 	private ArrayList<XTableCell> _items;

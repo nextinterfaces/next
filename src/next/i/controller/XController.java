@@ -16,9 +16,10 @@
 package next.i.controller;
 
 import next.i.view.IView;
+import next.i.view.MPanelBase;
 import next.i.view.XNavigationBar;
 import next.i.view.XNavigationView;
-import next.i.view.XScrollView;
+import next.i.view.XVerticalScrollView;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Element;
@@ -65,7 +66,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 public abstract class XController implements IController {
 
 	private XNavigationBar _navigationBar;
-	private XScrollView _view;
+	private XVerticalScrollView _view;
 	private String _title;
 	private int _id;
 	private XNavigationView _navigation;
@@ -90,7 +91,7 @@ public abstract class XController implements IController {
 
 	public IView getView() {
 		if (_view == null) {
-			_view = new XScrollView();
+			_view = new XVerticalScrollView();
 		}
 		return _view;
 	}
@@ -227,7 +228,7 @@ public abstract class XController implements IController {
 					IsWidget w = getViewContent();
 					if (w != null) {
 						XController.this.viewContent = w;
-						_view.add(w.asWidget());
+						((MPanelBase)getView()).add(w.asWidget());
 					}
 				}
 				getNavigationBar().repaint();

@@ -44,11 +44,17 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHandler, SwipeEventsHandler {
+/**
+ * This view class accepts finger drag actions and can be scrolled horizontally.
+ * 
+ * 
+ */
+public class XHorizontalScrollView extends MPanelBase implements HasWidgets, DragEventsHandler, SwipeEventsHandler,
+		IView {
 
 	private boolean _hasTextBox = false;
 
-	public MScrollPanel() {
+	public XHorizontalScrollView() {
 		setStyleName(XStyle.scrollPanel.name());
 	}
 
@@ -79,50 +85,50 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 
 	public void reset() {
 		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
-		FxUtil.setTranslateY(getWidget().getElement(), 0);
+		FxUtil.setTranslateX(getWidget().getElement(), 0);
 	}
 
 	public void setPostionToTop() {
 		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
-		FxUtil.setTranslateY(getWidget().getElement(), 0);
+		FxUtil.setTranslateX(getWidget().getElement(), 0);
 	}
 
 	public void setPositionToBottom() {
 		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
-		FxUtil.setTranslateY(getWidget().getElement(), this.getElement().getClientHeight()
-				- this.getElement().getScrollHeight());
+		FxUtil.setTranslateX(getWidget().getElement(), this.getElement().getClientWidth()
+				- this.getElement().getScrollWidth());
 	}
 
 	public void setScrollPosition(double pos) {
 		if (_hasTextBox) {
-			FxUtil.setStyleTop(this, pos);
+			FxUtil.setStyleLeft(this, pos);
 		} else {
 			Element element = getWidget().getElement();
-			FxUtil.setTranslateY(element, pos);
+			FxUtil.setTranslateX(element, pos);
 		}
-
 	}
 
 	public double getScrollPosition() {
 		if (_hasTextBox) {
-			return FxUtil.getStyleTop(this);
+			return FxUtil.getStyleLeft(this);
 		} else {
 			Element element = getWidget().getElement();
-			return FxUtil.getTranslateY(element);
+			return FxUtil.getTranslateX(element);
 		}
 	}
 
 	public double getScrollToPosition() {
 		if (_hasTextBox) {
-			return FxUtil.getStyleTop(this);
+			return FxUtil.getStyleLeft(this);
 		} else {
 			Element element = getWidget().getElement();
-			return Utils.getMatrixY(element);
+			return FxUtil.getMatrixX(element);
 		}
 	}
 
 	@Override
 	public void onDragStart(DragEvent e) {
+		// FIXME matrix is wrong
 		double matrix = getScrollToPosition();
 		double current = getScrollPosition();
 		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
@@ -130,7 +136,7 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 			// scroll on going
 			double diff = current - matrix;
 			double offset = diff > 2 ? 2 : diff > -2 ? diff : -2;
-			setScrollPosition(matrix + offset);
+//			setScrollPosition(matrix + offset);
 			DragController.get().suppressNextClick();
 		}
 	}
@@ -138,28 +144,28 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 	@Override
 	public void onDragMove(DragEvent e) {
 		Element widgetEle = getWidget().getElement();
-		int panelHeight = Utils.getHeight(this.getElement());
-		int widgetHeight = widgetEle.getOffsetHeight();
+		int panelWidth = Utils.getWidth(this.getElement());
+		int widgetWidth = widgetEle.getOffsetWidth();
 		double current = getScrollPosition();
 		if (current > 0) {
 			// exceed top boundary
-			if (e.OffsetY > 0) {
+			if (e.OffsetX > 0) {
 				// resist scroll down.
-				current += (int) (e.OffsetY / 2);
+				current += (int) (e.OffsetX / 2);
 				// need the cast for production mode.
 			} else {
-				current += e.OffsetY * 2;
+				current += e.OffsetX * 2;
 			}
-		} else if (-current + panelHeight > widgetHeight) {
+		} else if (-current + panelWidth > widgetWidth) {
 			// exceed bottom boundary
-			if (e.OffsetY < 0) {
+			if (e.OffsetX < 0) {
 				// resist scroll up.
-				current += (int) (e.OffsetY / 2);
+				current += (int) (e.OffsetX / 2);
 			} else {
-				current += e.OffsetY * 2;
+				current += e.OffsetX * 2;
 			}
 		} else {
-			current += e.OffsetY;
+			current += e.OffsetX;
 		}
 		setScrollPosition(current);
 	}
@@ -171,27 +177,31 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 		if (current == 0) {
 			return;
 		}
-		int panelHeight = Utils.getHeight(this.getElement());
-		int widgetHeight = widgetEle.getOffsetHeight();
+		int panelWidth = Utils.getWidth(this.getElement());
+		int widgetWidth = widgetEle.getOffsetWidth();
 		// exceed top boundary
-		if (current > 0 || panelHeight > widgetHeight) {
+		if (current > 0 || panelWidth > widgetWidth) {
 			FxUtil.setTransitionDuration(widgetEle, 500);
 			setScrollPosition(0);
-		} else if (-current + panelHeight > widgetHeight) {
+		} else if (-current + panelWidth > widgetWidth) {
 			// exceed bottom boundary
 			FxUtil.setTransitionDuration(widgetEle, 500);
-			setScrollPosition(panelHeight - widgetHeight);
+			setScrollPosition(panelWidth - widgetWidth);
 		}
 	}
 
 	@Override
 	public void onSwipeVertical(SwipeEvent e) {
+	}
+
+	@Override
+	public void onSwipeHorizontal(SwipeEvent e) {
 		Element widgetEle = getWidget().getElement();
-		int panelHeight = Utils.getHeight(this.getElement());
-		int widgetHeight = widgetEle.getOffsetHeight();
+		int panelWidth = Utils.getWidth(this.getElement());
+		int widgetWidth = widgetEle.getOffsetWidth();
 		double current = getScrollPosition();
 		// exceed top boundary
-		if ((current >= 0) || (-current + panelHeight >= widgetHeight)) {
+		if ((current >= 0) || (-current + panelWidth >= widgetWidth)) {
 			// exceed bottom boundary
 			return;
 		}
@@ -209,19 +219,15 @@ public class MScrollPanel extends MPanelBase implements HasWidgets, DragEventsHa
 			double timeAdj = 1 - (double) current / distance;
 			time = (long) (time * timeAdj);
 			current = 0;
-		} else if (-current + panelHeight > widgetHeight) {
+		} else if (-current + panelWidth > widgetWidth) {
 			// exceed bottom boundary
-			long bottom = panelHeight - widgetHeight;
+			long bottom = panelWidth - widgetWidth;
 			double timeAdj = 1 - (double) (current - bottom) / distance;
 			time = (long) (time * timeAdj);
 			current = bottom;
 		}
 		FxUtil.setTransitionDuration(widgetEle, time);
 		setScrollPosition((int) current);
-	}
-
-	@Override
-	public void onSwipeHorizontal(SwipeEvent e) {
 	}
 
 	@Override

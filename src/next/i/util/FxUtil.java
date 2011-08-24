@@ -16,6 +16,7 @@
 package next.i.util;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Timer;
@@ -27,8 +28,23 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class FxUtil {
 
+	public static double getStyleLeft(Widget w) {
+		Style style = w.getElement().getStyle();
+		String left = style.getLeft();
+		if (left.isEmpty()) {
+			return 0;
+		} else {
+			return Double.parseDouble(left.replace("px", ""));
+		}
+	}
+
+	public static void setStyleLeft(Widget w, double letf) {
+		Style style = w.getElement().getStyle();
+		style.setLeft(letf, Unit.PX);
+	}
+
 	public static double getStyleTop(Widget w) {
-		com.google.gwt.dom.client.Style style = w.getElement().getStyle();
+		Style style = w.getElement().getStyle();
 		String top = style.getTop();
 		if (top.isEmpty()) {
 			return 0;
@@ -38,7 +54,7 @@ public class FxUtil {
 	}
 
 	public static void setStyleTop(Widget w, double top) {
-		com.google.gwt.dom.client.Style style = w.getElement().getStyle();
+		Style style = w.getElement().getStyle();
 		style.setTop(top, Unit.PX);
 	}
 
@@ -86,16 +102,28 @@ public class FxUtil {
 		}.schedule(10);
 	}
 
-	public static native void setTranslateY(Element ele, double value) /*-{
-		ele.style.webkitTransform = "translate3d(0px, " + value + "px ,0px)";
+	public static native void setTranslateY(Element ele, double y) /*-{
+		ele.style.webkitTransform = "translate3d(0px, " + y + "px ,0px)";
+	}-*/;
+
+	public static native void setTranslateX(Element ele, double x) /*-{
+		ele.style.webkitTransform = "translate3d(" + x + "px ,0px,0px)";
+	}-*/;
+
+	public static native void setTranslateXY(Element ele, double x, double y) /*-{
+		ele.style.webkitTransform = "translate3d(" + x + "px ," + y + "px,0px)";
 	}-*/;
 
 	public static native int getTranslateX(Element ele) /*-{
 		var transform = ele.style.webkitTransform;
 		var translateX = 0;
 		if (transform && transform !== "") {
-			translateX = parseInt((/translate3d\((\-?.*)px, 0px, 0px\)/)
-					.exec(transform)[1]);
+			// this fails with IndefOutOfBounds error
+			//			translateX = parseInt((/translate3d\((\-?.*)px, 0px, 0px\)/).exec(transform)[1]);
+			var s = transform.replace("translate3d(", "").replace(")", "");
+			var arr = s.split("px,");
+			//console.log( "transform=" + transform + " [0]=" + arr[0] + "");
+			translateX = parseInt(arr[0]);
 		}
 		return translateX;
 	}-*/;
@@ -104,8 +132,13 @@ public class FxUtil {
 		var transform = ele.style.webkitTransform;
 		var translateY = 0;
 		if (transform && transform !== "") {
-			translateY = parseInt((/translate3d\(0px, (\-?.*)px, 0px\)/)
-					.exec(transform)[1]);
+			// this fails with IndefOutOfBounds error
+			// var v = (/translate3d\(0px, (\-?.*)px, 0px\)/).exec(transform);
+			// translateY = parseInt(v[1]);
+			var s = transform.replace("translate3d(", "").replace(")", "");
+			var arr = s.split("px,");
+			//console.log( "transform=" + transform + " [1]=" + arr[1] + "");
+			translateY = parseInt(arr[1]);
 		}
 		return translateY;
 	}-*/;
@@ -122,6 +155,12 @@ public class FxUtil {
 		var matrix = new WebKitCSSMatrix(
 				window.getComputedStyle(ele).webkitTransform);
 		return matrix.a;
+	}-*/;
+
+	public static native double getMatrixY(Element ele) /*-{
+		var matrix = new WebKitCSSMatrix(
+				window.getComputedStyle(ele).webkitTransform);
+		return matrix.f;
 	}-*/;
 
 }
