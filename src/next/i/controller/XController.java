@@ -17,6 +17,7 @@ package next.i.controller;
 
 import next.i.view.IView;
 import next.i.view.MPanelBase;
+import next.i.view.XDragScrollView;
 import next.i.view.XHorizontalScrollView;
 import next.i.view.XNavigationBar;
 import next.i.view.XNavigationView;
@@ -107,7 +108,7 @@ public abstract class XController implements IController {
 				_view = new XHorizontalScrollView();
 
 			} else if (getScrollOrientation() == Scroll.DRAGGABLE) {
-				_view = new XVerticalScrollView(); // TODO
+				_view = new XDragScrollView();
 
 			} else if (getScrollOrientation() == Scroll.NO_SCROLL) {
 				_view = new XView();

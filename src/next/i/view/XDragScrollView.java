@@ -29,19 +29,19 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * This view class accepts finger drag actions and can be scrolled horizontally.
- * 
- * 
+ * This view class accepts finger drag actions and can be scrolled horizontally
+ * and vertically.
  */
-public class XHorizontalScrollView extends MPanelBase implements HasWidgets, DragEventsHandler, SwipeEventsHandler,
-		IView {
+public class XDragScrollView extends MPanelBase implements HasWidgets, DragEventsHandler, SwipeEventsHandler, IView {
 
 	private boolean _hasTextBox = false;
 	private Element widgetElement;
 	private int panelWidth = -1;
 	private int widgetWidth = -1;
-
-	public XHorizontalScrollView() {
+	private int panelHeight = -1;
+	private int widgetHeight = -1;
+	
+	public XDragScrollView() {
 		setStyleName(XStyle.scrollPanel.name());
 	}
 
@@ -73,16 +73,21 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 	public void reset() {
 		FxUtil.setTransitionDuration(el(), 0);
 		FxUtil.setTranslateX(el(), 0);
+		FxUtil.setTranslateY(el(), 0);
 	}
 
 	public void setPostionToTop() {
 		FxUtil.setTransitionDuration(el(), 0);
 		FxUtil.setTranslateX(el(), 0);
+		FxUtil.setTranslateY(el(), 0);
 	}
 
 	public void setPositionToBottom() {
 		FxUtil.setTransitionDuration(el(), 0);
-		FxUtil.setTranslateX(el(), this.getElement().getClientWidth() - this.getElement().getScrollWidth());
+		//FxUtil.setTranslateX(el(), this.getElement().getClientWidth() - this.getElement().getScrollWidth());
+		FxUtil.setTranslateXY(el(), 
+				(this.getElement().getClientWidth() - this.getElement().getScrollWidth()),
+				(this.getElement().getClientHeight() - this.getElement().getScrollHeight()));
 	}
 
 	public void setScrollPositionX(double pos) {
@@ -109,6 +114,39 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 		}
 	}
 
+	public void setScrollPositionY(double pos) {
+		if (_hasTextBox) {
+			FxUtil.setStyleTop(this, pos);
+		} else {
+			FxUtil.setTranslateY(el(), pos);
+		}
+	}
+
+	public double getScrollPositionY() {
+		if (_hasTextBox) {
+			return FxUtil.getStyleTop(this);
+		} else {
+			return FxUtil.getTranslateY(el());
+		}
+	}
+
+	public double getScrollToPositionY() {
+		if (_hasTextBox) {
+			return FxUtil.getStyleTop(this);
+		} else {
+			return FxUtil.getMatrixY(el());
+		}
+	}
+
+	public void setScrollPositionXY(double posX, double posY) {
+		if (_hasTextBox) {
+			FxUtil.setStyleLeft(this, posX);
+			FxUtil.setStyleTop(this, posY);
+		} else {
+			FxUtil.setTranslateXY(el(), posX, posY);
+		}
+	}
+
 	@Override
 	public void onDragStart(DragEvent e) {
 
@@ -116,12 +154,18 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 
 		double matrixX = getScrollToPositionX();
 		double currX = getScrollPositionX();
+		double matrixY = getScrollToPositionY();
+		double currY = getScrollPositionY();
 		FxUtil.setTransitionDuration(el(), 0);
-		if (currX != matrixX) {
+		if (currX != matrixX || currY != matrixY) {
 			// scroll on going
 			double diffX = currX - matrixX;
 			double offsetX = diffX > 2 ? 2 : diffX > -2 ? diffX : -2;
-			setScrollPositionX(matrixX + offsetX);
+//			setScrollPositionX(matrixX + offsetX);
+			double diffY = currY - matrixY;
+			double offsetY = diffY > 2 ? 2 : diffY > -2 ? diffY : -2;
+//			setScrollPositionY(matrixY + offsetY);
+			setScrollPositionXY(matrixX + offsetX, matrixY + offsetY);
 			DragController.get().suppressNextClick();
 		}
 	}
@@ -129,17 +173,17 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 	@Override
 	public void onDragMove(DragEvent e) {
 		double currX = getScrollPositionX();
-		// exceed left boundary
+		// exceed top boundary
 		if (currX > 0) {
-			// resist scroll right.
+			// resist scroll down.
 			if (e.OffsetX > 0) {
 				currX += (int) (e.OffsetX / 2);
 			} else {
 				currX += e.OffsetX * 2;
 			}
-			// exceed right boundary
+			// exceed bottom boundary
 		} else if (-currX + panelWidth > widgetWidth) {
-			// resist scroll left.
+			// resist scroll up.
 			if (e.OffsetX < 0) {
 				currX += (int) (e.OffsetX / 2);
 			} else {
@@ -151,30 +195,96 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 		// XLog.info("current: " + current + ", e.OffsetX: " + e.OffsetX +
 		// ", e.OffsetY: " + e.OffsetY + ", e.X: " + e.X
 		// + ", e.Y: " + e.Y);
-		setScrollPositionX(currX);
+//		setScrollPositionX(currX);
+		
+		
+		double currY = getScrollPositionY();
+		if (currY > 0) {
+			// exceed top boundary
+			if (e.OffsetY > 0) {
+				// resist scroll down.
+				currY += (int) (e.OffsetY / 2);
+				// need the cast for production mode.
+			} else {
+				currY += e.OffsetY * 2;
+			}
+		} else if (-currY + panelHeight > widgetHeight) {
+			// exceed bottom boundary
+			if (e.OffsetY < 0) {
+				// resist scroll up.
+				currY += (int) (e.OffsetY / 2);
+			} else {
+				currY += e.OffsetY * 2;
+			}
+		} else {
+			currY += e.OffsetY;
+		}
+		
+		setScrollPositionXY(currX, currY);
 	}
 
 	@Override
 	public void onDragEnd(DragEvent e) {
 
 		double currX = getScrollPositionX();
-		if (currX == 0) {
+		double currY = getScrollPositionY();
+		if (currX == 0 || currY == 0) {
 			return;
 		}
+		
 		// exceed left boundary
 		if (currX > 0 || panelWidth > widgetWidth) {
 			FxUtil.setTransitionDuration(el(), 500);
-			setScrollPositionX(0);
+			setScrollPositionXY(0, getScrollPositionY());
 
 		} else if (-currX + panelWidth > widgetWidth) {
 			// exceed right boundary
 			FxUtil.setTransitionDuration(el(), 500);
-			setScrollPositionX(panelWidth - widgetWidth);
+			setScrollPositionXY(panelWidth - widgetWidth, getScrollPositionY());
+		}
+		
+		// exceed top boundary
+		if (currY > 0 || panelHeight > widgetHeight) {
+			FxUtil.setTransitionDuration(el(), 500);
+			setScrollPositionXY(getScrollPositionX(), 0);
+		} else if (-currY + panelHeight > widgetHeight) {
+			// exceed bottom boundary
+			FxUtil.setTransitionDuration(el(), 500);
+			setScrollPositionXY(getScrollPositionX(), panelHeight - widgetHeight);
 		}
 	}
 
 	@Override
 	public void onSwipeVertical(SwipeEvent e) {
+		double currY = getScrollPositionY();
+		// exceed top boundary
+		if ((currY >= 0) || (-currY + panelHeight >= widgetHeight)) {
+			// exceed bottom boundary
+			return;
+		}
+
+		double speed = e.getSpeed();
+		double timeFactor = 2800;
+		long time = (long) Math.abs(speed * timeFactor);
+		double dicstanceFactor = 0.24;
+		long distance = (long) (speed * time * dicstanceFactor);
+		// Utils.Console("speed " + speed + " time " + time + " distance " +
+		// distance + " current " + current);
+		currY += distance;
+		if (currY > 0) {
+			// exceed top boundary
+			double timeAdj = 1 - (double) currY / distance;
+			time = (long) (time * timeAdj);
+			currY = 0;
+		} else if (-currY + panelHeight > widgetHeight) {
+			// exceed bottom boundary
+			long bottom = panelHeight - widgetHeight;
+			double timeAdj = 1 - (double) (currY - bottom) / distance;
+			time = (long) (time * timeAdj);
+			currY = bottom;
+		}
+		FxUtil.setTransitionDuration(el(), time);
+		setScrollPositionXY(getScrollPositionX(), (int) currY);
 	}
 
 	@Override
@@ -208,7 +318,7 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 			currX = bottom;
 		}
 		FxUtil.setTransitionDuration(el(), time);
-		setScrollPositionX((int) currX);
+		setScrollPositionXY((int) currX, getScrollPositionY());
 	}
 
 	@Override
@@ -232,6 +342,9 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 		if (widgetWidth < 1) {
 			widgetWidth = el().getOffsetWidth();
 		}
+
+		panelHeight = Utils.getHeight(this.getElement());
+		widgetHeight = el().getOffsetHeight();
 	}
 
 }

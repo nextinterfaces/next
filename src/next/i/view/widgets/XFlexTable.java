@@ -28,6 +28,8 @@ public class XFlexTable extends FlexTable {
 
 	public XFlexTable(String height, String background) {
 		setWidth("100%");
+		setCellPadding(0);
+		setCellSpacing(0);
 		if (height != null) {
 			getElement().getStyle().setProperty("height", height);
 		}
