@@ -215,8 +215,6 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 	public void add(Widget w) {
 		assert _panel.getWidgetCount() == 0 : "Can only add one widget to MScrollPanel.";
 		super.add(w);
-
-		_lazyInit();
 	}
 
 	private Element el() {

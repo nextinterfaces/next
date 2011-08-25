@@ -229,8 +229,6 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 	public void add(Widget w) {
 		assert _panel.getWidgetCount() == 0 : "Can only add one widget to MScrollPanel.";
 		super.add(w);
-
-		_lazyInit();
 	}
 
 	private Element el() {
