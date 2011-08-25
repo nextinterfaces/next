@@ -101,13 +101,20 @@ public class XPopup extends PopupPanel {
 
 	@Override
 	public void hide(final boolean autoClosed) {
-		FxUtil.fadeOut(this, new Command() {
-			@Override
-			public void execute() {
-				XPopup.super.hide(autoClosed);
-				XPopup.super.setVisible(false);
-			}
-		});
+
+		if (Utils.isAndroid()) {
+			XPopup.super.hide(autoClosed);
+			XPopup.super.setVisible(false);
+		} else {
+			FxUtil.fadeOut(this, new Command() {
+				@Override
+				public void execute() {
+					XPopup.super.hide(autoClosed);
+					XPopup.super.setVisible(false);
+				}
+			});
+		}
+
 	}
 
 	private void doPosition() {
@@ -138,44 +145,44 @@ public class XPopup extends PopupPanel {
 
 	// TODO move to utilities
 	private static native int getViewportHeight() /*-{
-																								var viewportHeight;
-																								var d = $doc;
-																								var w = $wnd;
+		var viewportHeight;
+		var d = $doc;
+		var w = $wnd;
 
-																								if (w.innerHeight && w.scrollMaxY) {
-																								viewportHeight = w.innerHeight + w.scrollMaxY;
+		if (w.innerHeight && w.scrollMaxY) {
+			viewportHeight = w.innerHeight + w.scrollMaxY;
 
-																								} else if (d.body.scrollHeight > d.body.offsetHeight) {
-																								// all but explorer mac
-																								viewportHeight = d.body.scrollHeight;
+		} else if (d.body.scrollHeight > d.body.offsetHeight) {
+			// all but explorer mac
+			viewportHeight = d.body.scrollHeight;
 
-																								} else {
-																								// explorer mac...would also work in explorer 6 strict, mozilla and safari
-																								viewportHeight = d.body.offsetHeight;
-																								}
+		} else {
+			// explorer mac...would also work in explorer 6 strict, mozilla and safari
+			viewportHeight = d.body.offsetHeight;
+		}
 
-																								return viewportHeight;
-																								}-*/;
+		return viewportHeight;
+	}-*/;
 
 	// TODO move to utilities
 	private static native int getVerticalOffset() /*-{
-																								var d = $doc;
-																								var w = $wnd;
-																								// viewport vertical scroll offset
-																								var verticalOffset;
+		var d = $doc;
+		var w = $wnd;
+		// viewport vertical scroll offset
+		var verticalOffset;
 
-																								if (self.pageYOffset) {
-																								verticalOffset = self.pageYOffset;
+		if (self.pageYOffset) {
+			verticalOffset = self.pageYOffset;
 
-																								} else if (d.documentElement && d.documentElement.scrollTop) {
-																								// Explorer 6 Strict
-																								verticalOffset = d.documentElement.scrollTop;
+		} else if (d.documentElement && d.documentElement.scrollTop) {
+			// Explorer 6 Strict
+			verticalOffset = d.documentElement.scrollTop;
 
-																								} else if (d.body) {
-																								// all other Explorers
-																								verticalOffset = d.body.scrollTop;
-																								}
-																								return verticalOffset;
-																								}-*/;
+		} else if (d.body) {
+			// all other Explorers
+			verticalOffset = d.body.scrollTop;
+		}
+		return verticalOffset;
+	}-*/;
 
 }
