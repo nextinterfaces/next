@@ -37,6 +37,9 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 		IView {
 
 	private boolean _hasTextBox = false;
+	private Element widgetElement;
+	private int panelWidth = -1;
+	private int widgetWidth = -1;
 
 	public XHorizontalScrollView() {
 		setStyleName(XStyle.scrollPanel.name());
@@ -68,114 +71,105 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 	}
 
 	public void reset() {
-		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
-		FxUtil.setTranslateX(getWidget().getElement(), 0);
+		FxUtil.setTransitionDuration(el(), 0);
+		FxUtil.setTranslateX(el(), 0);
 	}
 
 	public void setPostionToTop() {
-		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
-		FxUtil.setTranslateX(getWidget().getElement(), 0);
+		FxUtil.setTransitionDuration(el(), 0);
+		FxUtil.setTranslateX(el(), 0);
 	}
 
 	public void setPositionToBottom() {
-		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
-		FxUtil.setTranslateX(getWidget().getElement(), this.getElement().getClientWidth()
-				- this.getElement().getScrollWidth());
+		FxUtil.setTransitionDuration(el(), 0);
+		FxUtil.setTranslateX(el(), this.getElement().getClientWidth() - this.getElement().getScrollWidth());
 	}
 
-	public void setScrollPosition(double pos) {
+	public void setScrollPositionX(double pos) {
 		if (_hasTextBox) {
 			FxUtil.setStyleLeft(this, pos);
 		} else {
-			Element element = getWidget().getElement();
-			FxUtil.setTranslateX(element, pos);
+			FxUtil.setTranslateX(el(), pos);
 		}
 	}
 
-	public double getScrollPosition() {
+	public double getScrollPositionX() {
 		if (_hasTextBox) {
 			return FxUtil.getStyleLeft(this);
 		} else {
-			Element element = getWidget().getElement();
-			return FxUtil.getTranslateX(element);
+			return FxUtil.getTranslateX(el());
 		}
 	}
 
-	public double getScrollToPosition() {
+	public double getScrollToPositionX() {
 		if (_hasTextBox) {
 			return FxUtil.getStyleLeft(this);
 		} else {
-			Element element = getWidget().getElement();
-			return FxUtil.getMatrixX(element);
+			return FxUtil.getMatrixX(el());
 		}
 	}
 
 	@Override
 	public void onDragStart(DragEvent e) {
-		// XLog.info("{} onDragStart...");
-		// FIXME matrix is wrong
-		double matrix = getScrollToPosition();
-		double current = getScrollPosition();
-		FxUtil.setTransitionDuration(getWidget().getElement(), 0);
-		if (current != matrix) {
+
+		_lazyInit();
+
+		double matrixX = getScrollToPositionX();
+		double currX = getScrollPositionX();
+		FxUtil.setTransitionDuration(el(), 0);
+		if (currX != matrixX) {
 			// scroll on going
-			double diff = current - matrix;
-			double offset = diff > 2 ? 2 : diff > -2 ? diff : -2;
-			setScrollPosition(matrix + offset);
+			double diffX = currX - matrixX;
+			double offsetX = diffX > 2 ? 2 : diffX > -2 ? diffX : -2;
+			setScrollPositionX(matrixX + offsetX);
 			DragController.get().suppressNextClick();
 		}
 	}
 
 	@Override
 	public void onDragMove(DragEvent e) {
-		Element widgetEle = getWidget().getElement();
-		int panelWidth = Utils.getWidth(this.getElement());
-		int widgetWidth = widgetEle.getOffsetWidth();
-		double current = getScrollPosition();
-		if (current > 0) {
-			// exceed top boundary
+		double currX = getScrollPositionX();
+		// exceed top boundary
+		if (currX > 0) {
+			// resist scroll down.
 			if (e.OffsetX > 0) {
-				// resist scroll down.
-				current += (int) (e.OffsetX / 2);
-				// need the cast for production mode.
+				currX += (int) (e.OffsetX / 2);
 			} else {
-				current += e.OffsetX * 2;
+				currX += e.OffsetX * 2;
 			}
-		} else if (-current + panelWidth > widgetWidth) {
 			// exceed bottom boundary
+		} else if (-currX + panelWidth > widgetWidth) {
+			// resist scroll up.
 			if (e.OffsetX < 0) {
-				// resist scroll up.
-				current += (int) (e.OffsetX / 2);
+				currX += (int) (e.OffsetX / 2);
 			} else {
-				current += e.OffsetX * 2;
+				currX += e.OffsetX * 2;
 			}
 		} else {
-			current += e.OffsetX;
+			currX += e.OffsetX;
 		}
 		// XLog.info("current: " + current + ", e.OffsetX: " + e.OffsetX +
 		// ", e.OffsetY: " + e.OffsetY + ", e.X: " + e.X
 		// + ", e.Y: " + e.Y);
-		setScrollPosition(current);
+		setScrollPositionX(currX);
 	}
 
 	@Override
 	public void onDragEnd(DragEvent e) {
-		// XLog.info("{} onDragEnd...");
-		Element widgetEle = getWidget().getElement();
-		double current = getScrollPosition();
-		if (current == 0) {
+
+		double currX = getScrollPositionX();
+		if (currX == 0) {
 			return;
 		}
-		int panelWidth = Utils.getWidth(this.getElement());
-		int widgetWidth = widgetEle.getOffsetWidth();
 		// exceed top boundary
-		if (current > 0 || panelWidth > widgetWidth) {
-			FxUtil.setTransitionDuration(widgetEle, 500);
-			setScrollPosition(0);
-		} else if (-current + panelWidth > widgetWidth) {
+		if (currX > 0 || panelWidth > widgetWidth) {
+			FxUtil.setTransitionDuration(el(), 500);
+			setScrollPositionX(0);
+
+		} else if (-currX + panelWidth > widgetWidth) {
 			// exceed bottom boundary
-			FxUtil.setTransitionDuration(widgetEle, 500);
-			setScrollPosition(panelWidth - widgetWidth);
+			FxUtil.setTransitionDuration(el(), 500);
+			setScrollPositionX(panelWidth - widgetWidth);
 		}
 	}
 
@@ -185,12 +179,10 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 
 	@Override
 	public void onSwipeHorizontal(SwipeEvent e) {
-		Element widgetEle = getWidget().getElement();
-		int panelWidth = Utils.getWidth(this.getElement());
-		int widgetWidth = widgetEle.getOffsetWidth();
-		double current = getScrollPosition();
+		double currX = getScrollPositionX();
+
 		// exceed top boundary
-		if ((current >= 0) || (-current + panelWidth >= widgetWidth)) {
+		if ((currX >= 0) || (-currX + panelWidth >= widgetWidth)) {
 			// exceed bottom boundary
 			return;
 		}
@@ -201,28 +193,47 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 		double dicstanceFactor = 0.24;
 		long distance = (long) (speed * time * dicstanceFactor);
 		// Utils.Console("speed " + speed + " time " + time + " distance " +
-		// distance + " current " + current);
-		current += distance;
-		if (current > 0) {
+		// distance + " currX " + currX);
+		currX += distance;
+		if (currX > 0) {
 			// exceed top boundary
-			double timeAdj = 1 - (double) current / distance;
+			double timeAdj = 1 - (double) currX / distance;
 			time = (long) (time * timeAdj);
-			current = 0;
-		} else if (-current + panelWidth > widgetWidth) {
+			currX = 0;
+		} else if (-currX + panelWidth > widgetWidth) {
 			// exceed bottom boundary
 			long bottom = panelWidth - widgetWidth;
-			double timeAdj = 1 - (double) (current - bottom) / distance;
+			double timeAdj = 1 - (double) (currX - bottom) / distance;
 			time = (long) (time * timeAdj);
-			current = bottom;
+			currX = bottom;
 		}
-		FxUtil.setTransitionDuration(widgetEle, time);
-		setScrollPosition((int) current);
+		FxUtil.setTransitionDuration(el(), time);
+		setScrollPositionX((int) currX);
 	}
 
 	@Override
 	public void add(Widget w) {
 		assert _panel.getWidgetCount() == 0 : "Can only add one widget to MScrollPanel.";
 		super.add(w);
+
+		_lazyInit();
+	}
+
+	private Element el() {
+		if (widgetElement == null) {
+			widgetElement = getWidget().getElement();
+		}
+		return widgetElement;
+	}
+
+	private void _lazyInit() {
+		// lazy init. no reason to calculate each time in onDragMove
+		if (panelWidth < 1) {
+			panelWidth = Utils.getWidth(this.getElement());
+		}
+		if (widgetWidth < 1) {
+			widgetWidth = el().getOffsetWidth();
+		}
 	}
 
 }
