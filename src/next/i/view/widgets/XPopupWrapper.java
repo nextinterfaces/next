@@ -38,13 +38,19 @@ public class XPopupWrapper {
 
 		@Override
 		public void hide(final boolean autoClosed) {
-			FxUtil.fadeOut(this, new Command() {
-				@Override
-				public void execute() {
-					OverlayPanel.super.hide(autoClosed);
-					OverlayPanel.super.setVisible(false);
-				}
-			});
+			if (Utils.isAndroid()) {
+				OverlayPanel.super.hide(autoClosed);
+				OverlayPanel.super.setVisible(false);
+
+			} else {
+				FxUtil.fadeOut(this, new Command() {
+					@Override
+					public void execute() {
+						OverlayPanel.super.hide(autoClosed);
+						OverlayPanel.super.setVisible(false);
+					}
+				});
+			}
 		}
 
 		@Override
