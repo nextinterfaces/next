@@ -121,7 +121,7 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 			// scroll on going
 			double diff = current - matrix;
 			double offset = diff > 2 ? 2 : diff > -2 ? diff : -2;
-			// setScrollPosition(matrix + offset);
+			setScrollPosition(matrix + offset);
 			DragController.get().suppressNextClick();
 		}
 	}

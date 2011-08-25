@@ -154,12 +154,14 @@ public class FxUtil {
 	public static native double getMatrixX(Element ele) /*-{
 		var matrix = new WebKitCSSMatrix(
 				window.getComputedStyle(ele).webkitTransform);
-		return matrix.a;
+		//console.log( "XX: a:" + matrix.a + " b:" + matrix.b + " c:" + matrix.c + " d:" + matrix.d + " e:" + matrix.e + " f:" + matrix.f + " ");
+		return matrix.e;
 	}-*/;
 
 	public static native double getMatrixY(Element ele) /*-{
 		var matrix = new WebKitCSSMatrix(
 				window.getComputedStyle(ele).webkitTransform);
+		//console.log( "YY: a:" + matrix.a + " b:" + matrix.b + " c:" + matrix.c + " d:" + matrix.d + " e:" + matrix.e + " f:" + matrix.f + " ");
 		return matrix.f;
 	}-*/;
 
