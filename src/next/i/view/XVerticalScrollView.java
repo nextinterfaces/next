@@ -102,7 +102,7 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 				- this.getElement().getScrollHeight());
 	}
 
-	public void setScrollPosition(double pos) {
+	public void setScrollPositionY(double pos) {
 		if (_hasTextBox) {
 			FxUtil.setStyleTop(this, pos);
 		} else {
@@ -110,7 +110,7 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 		}
 	}
 
-	public double getScrollPosition() {
+	public double getScrollPositionY() {
 		if (_hasTextBox) {
 			return FxUtil.getStyleTop(this);
 		} else {
@@ -118,7 +118,7 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 		}
 	}
 
-	public double getScrollToPosition() {
+	public double getScrollToPositionY() {
 		if (_hasTextBox) {
 			return FxUtil.getStyleTop(this);
 		} else {
@@ -128,14 +128,14 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 
 	@Override
 	public void onDragStart(DragEvent e) {
-		double matrix = getScrollToPosition();
-		double current = getScrollPosition();
+		double matrixY = getScrollToPositionY();
+		double currY = getScrollPositionY();
 		FxUtil.setTransitionDuration(el(), 0);
-		if (current != matrix) {
+		if (currY != matrixY) {
 			// scroll on going
-			double diff = current - matrix;
+			double diff = currY - matrixY;
 			double offset = diff > 2 ? 2 : diff > -2 ? diff : -2;
-			setScrollPosition(matrix + offset);
+			setScrollPositionY(matrixY + offset);
 			DragController.get().suppressNextClick();
 		}
 	}
@@ -144,46 +144,46 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 	public void onDragMove(DragEvent e) {
 		int panelHeight = Utils.getHeight(this.getElement());
 		int widgetHeight = el().getOffsetHeight();
-		double current = getScrollPosition();
-		if (current > 0) {
+		double currY = getScrollPositionY();
+		if (currY > 0) {
 			// exceed top boundary
 			if (e.OffsetY > 0) {
 				// resist scroll down.
-				current += (int) (e.OffsetY / 2);
+				currY += (int) (e.OffsetY / 2);
 				// need the cast for production mode.
 			} else {
-				current += e.OffsetY * 2;
+				currY += e.OffsetY * 2;
 			}
-		} else if (-current + panelHeight > widgetHeight) {
+		} else if (-currY + panelHeight > widgetHeight) {
 			// exceed bottom boundary
 			if (e.OffsetY < 0) {
 				// resist scroll up.
-				current += (int) (e.OffsetY / 2);
+				currY += (int) (e.OffsetY / 2);
 			} else {
-				current += e.OffsetY * 2;
+				currY += e.OffsetY * 2;
 			}
 		} else {
-			current += e.OffsetY;
+			currY += e.OffsetY;
 		}
-		setScrollPosition(current);
+		setScrollPositionY(currY);
 	}
 
 	@Override
 	public void onDragEnd(DragEvent e) {
-		double current = getScrollPosition();
-		if (current == 0) {
+		double currY = getScrollPositionY();
+		if (currY == 0) {
 			return;
 		}
 		int panelHeight = Utils.getHeight(this.getElement());
 		int widgetHeight = el().getOffsetHeight();
 		// exceed top boundary
-		if (current > 0 || panelHeight > widgetHeight) {
+		if (currY > 0 || panelHeight > widgetHeight) {
 			FxUtil.setTransitionDuration(el(), 500);
-			setScrollPosition(0);
-		} else if (-current + panelHeight > widgetHeight) {
+			setScrollPositionY(0);
+		} else if (-currY + panelHeight > widgetHeight) {
 			// exceed bottom boundary
 			FxUtil.setTransitionDuration(el(), 500);
-			setScrollPosition(panelHeight - widgetHeight);
+			setScrollPositionY(panelHeight - widgetHeight);
 		}
 	}
 
@@ -191,9 +191,9 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 	public void onSwipeVertical(SwipeEvent e) {
 		int panelHeight = Utils.getHeight(this.getElement());
 		int widgetHeight = el().getOffsetHeight();
-		double current = getScrollPosition();
+		double currY = getScrollPositionY();
 		// exceed top boundary
-		if ((current >= 0) || (-current + panelHeight >= widgetHeight)) {
+		if ((currY >= 0) || (-currY + panelHeight >= widgetHeight)) {
 			// exceed bottom boundary
 			return;
 		}
@@ -205,21 +205,21 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 		long distance = (long) (speed * time * dicstanceFactor);
 		// Utils.Console("speed " + speed + " time " + time + " distance " +
 		// distance + " current " + current);
-		current += distance;
-		if (current > 0) {
+		currY += distance;
+		if (currY > 0) {
 			// exceed top boundary
-			double timeAdj = 1 - (double) current / distance;
+			double timeAdj = 1 - (double) currY / distance;
 			time = (long) (time * timeAdj);
-			current = 0;
-		} else if (-current + panelHeight > widgetHeight) {
+			currY = 0;
+		} else if (-currY + panelHeight > widgetHeight) {
 			// exceed bottom boundary
 			long bottom = panelHeight - widgetHeight;
-			double timeAdj = 1 - (double) (current - bottom) / distance;
+			double timeAdj = 1 - (double) (currY - bottom) / distance;
 			time = (long) (time * timeAdj);
-			current = bottom;
+			currY = bottom;
 		}
 		FxUtil.setTransitionDuration(el(), time);
-		setScrollPosition((int) current);
+		setScrollPositionY((int) currY);
 	}
 
 	@Override
