@@ -58,19 +58,19 @@ public class FxUtil {
 		style.setTop(top, Unit.PX);
 	}
 
-	public static void fadeIn(UIObject obj) {
+	public static void fadeIn(final UIObject obj) {
 
 		final Element ele = obj.getElement();
 
-		obj.setVisible(false);
+//		obj.setVisible(false);
 		ele.getStyle().setOpacity(0);
 		setTransitionProperty(ele, "opacity");
-		setTransitionDuration(ele, 300);
+		setTransitionDuration(ele, 250);
 
-		obj.setVisible(true);
 
 		new Timer() {
 			public void run() {
+				obj.setVisible(true);
 				ele.getStyle().setOpacity(1);
 			}
 		}.schedule(10);
@@ -83,10 +83,11 @@ public class FxUtil {
 		obj.setVisible(true);
 		ele.getStyle().setOpacity(1);
 		setTransitionProperty(ele, "opacity");
-		setTransitionDuration(ele, 300);
+		setTransitionDuration(ele, 250);
 
 		new Timer() {
 			public void run() {
+
 				ele.getStyle().setOpacity(0);
 
 				if (onClose != null) {
@@ -95,7 +96,7 @@ public class FxUtil {
 							// obj.setVisible(false);
 							onClose.execute();
 						}
-					}.schedule(290);
+					}.schedule(250);
 				}
 
 			}
@@ -118,7 +119,7 @@ public class FxUtil {
 		var transform = ele.style.webkitTransform;
 		var translateX = 0;
 		if (transform && transform !== "") {
-			// this fails with IndefOutOfBounds error
+			// this fails with IndexOutOfBounds error
 			//			translateX = parseInt((/translate3d\((\-?.*)px, 0px, 0px\)/).exec(transform)[1]);
 			var s = transform.replace("translate3d(", "").replace(")", "");
 			var arr = s.split("px,");
@@ -132,7 +133,7 @@ public class FxUtil {
 		var transform = ele.style.webkitTransform;
 		var translateY = 0;
 		if (transform && transform !== "") {
-			// this fails with IndefOutOfBounds error
+			// this fails with IndexOutOfBounds error
 			// var v = (/translate3d\(0px, (\-?.*)px, 0px\)/).exec(transform);
 			// translateY = parseInt(v[1]);
 			var s = transform.replace("translate3d(", "").replace(")", "");

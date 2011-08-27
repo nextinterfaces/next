@@ -18,10 +18,17 @@ package next.i.view.widgets;
 import next.i.util.FxUtil;
 import next.i.util.Utils;
 
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.EventTarget;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * 
@@ -29,160 +36,147 @@ import com.google.gwt.user.client.ui.PopupPanel;
  * <img class='ai' src='../../../../resources/XPopup.png' />
  * </p>
  */
-public class XPopup extends PopupPanel {
+public class XPopup extends SimplePanel {
 
-	private final XPopupWrapper overlayWrapper;
+	private boolean isCentered = false;
 
-	private Style s = getElement().getStyle();
-
-	private boolean positionChanged = false;
-
-	private Double top;
-	private Double right;
-	private Double bottom;
-	private Double left;
-	private Unit topUnit;
-	private Unit rightUnit;
-	private Unit bottomUnit;
-	private Unit leftUnit;
+	private String top;
+	private String right;
+	private String bottom;
+	private String left;
 
 	public XPopup() {
-		this(false, false);
-	}
+		setStyleName("xpopupOverlay");
 
-	private XPopup(boolean autoHide, boolean modal) {
-		super(autoHide, modal);
-		overlayWrapper = new XPopupWrapper(this);
-	}
-
-	public void setTop(Double value, Unit unit) {
-		positionChanged = true;
-		top = value;
-		topUnit = unit;
-	}
-
-	public void setRight(Double value, Unit unit) {
-		positionChanged = true;
-		right = value;
-		rightUnit = unit;
-	}
-
-	public void setBottom(Double value, Unit unit) {
-		positionChanged = true;
-		bottom = value;
-		bottomUnit = unit;
-	}
-
-	public void setLeft(Double value, Unit unit) {
-		positionChanged = true;
-		left = value;
-		leftUnit = unit;
+		addDomHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}, ClickEvent.getType());
 	}
 
 	@Override
-	public void show() {
-		overlayWrapper.showOverlay();
-		if (positionChanged) {
-			setVisible(false);
-			super.show();
-			doPosition();
+	public void onBrowserEvent(Event e) {
+		EventTarget target = e.getEventTarget();
+		Node node = Node.as(target);
 
-			if (Utils.isAndroid()) {
-				this.setVisible(true);
-				this.getElement().getStyle().setOpacity(1);
-			} else {
-				FxUtil.fadeIn(this);
+		if (Element.is(node)) {
+			Element ele = Element.as(target);
+			// maek sure click is invoked from overlay not inner widget
+			if (ele.getClassName().contains("xpopupOverlay")) {
+				super.onBrowserEvent(e);
+				return;
 			}
-
-		} else {
-			super.show();
 		}
 	}
 
-	@Override
-	public void hide(final boolean autoClosed) {
+	public void setTop(String value) {
+		top = value;
+	}
 
+	public void setRight(String value) {
+		right = value;
+	}
+
+	public void setBottom(String value) {
+		bottom = value;
+	}
+
+	public void setLeft(String value) {
+		left = value;
+	}
+
+	public void center() {
+		isCentered = true;
+	}
+
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		Style s = getWidget().getElement().getStyle();
+		getWidget().addStyleName("xpopup");
+		doPosition(s);
+	}
+
+	@Override
+	public void setWidget(Widget w) {
+		super.setWidget(w);
+	}
+
+	private void doPosition(Style s) {
+
+		if (isCentered) {
+
+			setBottom(null);
+			setRight(null);
+			setTop("50%");
+			setLeft("50%");
+			int height = getWidget().getOffsetHeight();
+			int width = getWidget().getOffsetWidth();
+
+			// XLog.info("height: " + height + ", getOffsetHeight(): " +
+			// getOffsetHeight());
+
+			int top_ = height >= getOffsetHeight() ? 0 : (height / 2);
+			int left_ = width >= getOffsetWidth() ? 0 : (width / 2);
+
+			s.setProperty("marginTop", "-" + top_ + "px");
+			s.setProperty("marginLeft", "-" + left_ + "px");
+
+		} else {
+
+			if (top == null) {
+				s.clearProperty("top");
+			} else {
+				s.setProperty("top", top);
+			}
+
+			if (right == null) {
+				s.clearProperty("right");
+			} else {
+				s.setProperty("right", right);
+			}
+
+			if (bottom == null) {
+				s.clearProperty("bottom");
+			} else {
+				s.setProperty("bottom", bottom);
+			}
+
+			if (left == null) {
+				s.clearProperty("left");
+			} else {
+				s.setProperty("left", left);
+			}
+
+		}
+
+	}
+
+	public void show() {
+		RootLayoutPanel.get().add(this);
 		if (Utils.isAndroid()) {
-			XPopup.super.hide(autoClosed);
-			XPopup.super.setVisible(false);
+			this.setVisible(true);
+			this.getElement().getStyle().setOpacity(1);
+		} else {
+			FxUtil.fadeIn(this);
+		}
+	}
+
+	public void hide() {
+		if (Utils.isAndroid()) {
+			removeFromParent();
 		} else {
 			FxUtil.fadeOut(this, new Command() {
 				@Override
 				public void execute() {
-					XPopup.super.hide(autoClosed);
-					XPopup.super.setVisible(false);
+					// XPopup.super.hide(autoClosed);
+					// setVisible(false);
+					removeFromParent();
 				}
 			});
 		}
 
 	}
-
-	private void doPosition() {
-		if (top == null) {
-			s.clearProperty("top");
-		} else {
-			s.setTop(top, topUnit);
-		}
-
-		if (right == null) {
-			s.clearProperty("right");
-		} else {
-			s.setRight(right, rightUnit);
-		}
-
-		if (bottom == null) {
-			s.clearProperty("bottom");
-		} else {
-			s.setBottom(bottom, bottomUnit);
-		}
-
-		if (left == null) {
-			s.clearProperty("left");
-		} else {
-			s.setLeft(left, leftUnit);
-		}
-	}
-
-	// TODO move to utilities
-	private static native int getViewportHeight() /*-{
-		var viewportHeight;
-		var d = $doc;
-		var w = $wnd;
-
-		if (w.innerHeight && w.scrollMaxY) {
-			viewportHeight = w.innerHeight + w.scrollMaxY;
-
-		} else if (d.body.scrollHeight > d.body.offsetHeight) {
-			// all but explorer mac
-			viewportHeight = d.body.scrollHeight;
-
-		} else {
-			// explorer mac...would also work in explorer 6 strict, mozilla and safari
-			viewportHeight = d.body.offsetHeight;
-		}
-
-		return viewportHeight;
-	}-*/;
-
-	// TODO move to utilities
-	private static native int getVerticalOffset() /*-{
-		var d = $doc;
-		var w = $wnd;
-		// viewport vertical scroll offset
-		var verticalOffset;
-
-		if (self.pageYOffset) {
-			verticalOffset = self.pageYOffset;
-
-		} else if (d.documentElement && d.documentElement.scrollTop) {
-			// Explorer 6 Strict
-			verticalOffset = d.documentElement.scrollTop;
-
-		} else if (d.body) {
-			// all other Explorers
-			verticalOffset = d.body.scrollTop;
-		}
-		return verticalOffset;
-	}-*/;
 
 }

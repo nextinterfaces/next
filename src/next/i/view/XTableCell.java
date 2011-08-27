@@ -15,7 +15,6 @@
  */
 package next.i.view;
 
-import next.i.XLog;
 import next.i.XStyle;
 import next.i.controller.XTableController;
 
