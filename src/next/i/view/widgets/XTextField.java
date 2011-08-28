@@ -76,6 +76,10 @@ public class XTextField extends Composite {
 	private Label _label;
 	private TextBoxBase _textBox;
 	private LayoutPanel _panel;
+	
+	public XTextField(String label) {
+		this( label, null);
+	}
 
 	public XTextField(String label, XTextFieldType type) {
 		_panel = new LayoutPanel();
