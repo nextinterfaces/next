@@ -33,10 +33,7 @@ import com.google.gwt.user.client.ui.IsWidget;
  * This class allows view-management functionality for toolbars, navigation
  * bars, and application views. The XController class also animates on view
  * transitions.
- * 
- * <p>
- * <img src='../../../resources/XController.png'/>
- * </p>
+ *
  * 
  * <h3>Example:</h3>
  * 
