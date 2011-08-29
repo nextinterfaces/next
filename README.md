@@ -11,6 +11,11 @@ http://nextinterfaces.com/
 ### Demo (WebKit only):
 http://nextinterfaces.com/DEMO
 
+### Apps
+NEXT celebrities:
+-------------
+http://nextinterfaces.com/celebs
+
 
 Supported Phones & Tablets:
 ---------------------------
