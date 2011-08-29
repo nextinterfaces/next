@@ -11,9 +11,7 @@ http://nextinterfaces.com/
 ### Demo (WebKit only):
 http://nextinterfaces.com/DEMO
 
-### Apps
-NEXT celebrities:
--------------
+### Apps (WebKit only):
 http://nextinterfaces.com/celebs
 
 
