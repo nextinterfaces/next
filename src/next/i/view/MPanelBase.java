@@ -33,9 +33,11 @@ package next.i.view;
 
 import java.util.Iterator;
 
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MPanelBase extends Composite implements HasWidgets {
@@ -54,6 +56,10 @@ public class MPanelBase extends Composite implements HasWidgets {
 	@Override
 	public void clear() {
 		_panel.clear();
+	}
+
+	public Element getParentContainer() {
+		return (Element)RootLayoutPanel.get().getWidgetContainerElement(this);
 	}
 
 	@Override

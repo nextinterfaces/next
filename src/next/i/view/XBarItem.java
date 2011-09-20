@@ -165,4 +165,14 @@ public class XBarItem extends Composite implements HasClickHandlers, DragEventsH
 		}
 	}
 
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
+	}
+
 }

@@ -26,6 +26,7 @@ public class CellData {
 	private Widget[] westWidgets;
 	private Widget[] eastWidgets;
 	private Widget[] textWidgets;
+	private String title;
 
 	public CellData() {
 	}
@@ -38,6 +39,7 @@ public class CellData {
 		setWestWidgets(westImage);
 		setTextWidgets(new Label(title));
 		setEastWidgets(eastImage);
+		this.title = title;
 	}
 
 	public CellData(Widget westWidget, Widget textWidget, Widget eastWidget) {
@@ -80,6 +82,14 @@ public class CellData {
 
 	public Widget[] getTextWidgets() {
 		return textWidgets;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

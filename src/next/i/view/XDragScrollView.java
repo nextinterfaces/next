@@ -337,14 +337,24 @@ public class XDragScrollView extends MPanelBase implements HasWidgets, DragEvent
 	private void _lazyInit() {
 		// lazy init. no reason to calculate each time in onDragMove
 		if (panelWidth < 1) {
-			panelWidth = Utils.getWidth(this.getElement());
+			panelWidth = FxUtil.getWidth(this.getElement());
 		}
 		if (widgetWidth < 1) {
 			widgetWidth = el().getOffsetWidth();
 		}
 
-		panelHeight = Utils.getHeight(this.getElement());
+		panelHeight = FxUtil.getHeight(this.getElement());
 		widgetHeight = el().getOffsetHeight();
+	}
+
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
 	}
 
 }
