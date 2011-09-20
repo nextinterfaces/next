@@ -41,11 +41,19 @@ public class XLog {
 		}
 	}
 
+	/**
+	 * Utility method throwing an error allowing to position stak execution of a
+	 * method
+	 */
+	public static void throwStackTrace() {
+		try {
+			throw new RuntimeException("throwStackTrace");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static native void console(String msg) /*-{
-		//		if ($wnd.console) {
-		//			$wnd.console.log(msg);
-		//		}
-		//		else 
 		var logElem = $doc.getElementById('xlog');
 		if (logElem) {
 			logElem.innerHTML = msg + '<br/>' + logElem.innerHTML;
@@ -54,6 +62,5 @@ public class XLog {
 				$wnd.console.log(msg);
 			}
 		}
-
 	}-*/;
 }
