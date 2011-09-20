@@ -40,6 +40,10 @@ public interface DragEventsHandler extends EventHandler {
 
 	void onDragMove(DragEvent e);
 
+	void onDragMoveHorizontal(DragEvent e);
+
+	void onDragMoveVertical(DragEvent e);
+
 	void onDragEnd(DragEvent e);
 
 	Element getElement();
