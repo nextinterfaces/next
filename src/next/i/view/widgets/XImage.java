@@ -23,12 +23,18 @@ import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Image;
+
 /**
  * 
  * <p>
  * <img class='ai' src='../../../../resources/XImage.png' />
  * </p>
+ * 
+ * @deprecated Using Image has locking effect on DOM, thus Image support will be
+ *             dropped. Consider using alternatives such as XImageDiv using
+ *             &lt;div/&gt; with css background-image
  */
+@Deprecated
 public class XImage extends Image {
 
 	/**
@@ -57,7 +63,7 @@ public class XImage extends Image {
 	 */
 	public XImage(String url) {
 		super(url);
-		
+
 		addLoadHandler(new LoadHandler() {
 			@Override
 			public void onLoad(LoadEvent event) {
@@ -78,7 +84,7 @@ public class XImage extends Image {
 					}
 
 					size = size - 20/* padding */;
-					
+
 					// FIXME add orientation listener
 					if (originalHeight > originalWidth) {
 						XImage.this.setHeight(size + "px");
