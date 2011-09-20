@@ -57,8 +57,8 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 	private boolean _hasTextBox = false;
 	private Element widgetElement;
 
-	private int panelHeight = -1;
-	private int widgetHeight = -1;
+	protected int panelHeight = -1;
+	protected int widgetHeight = -1;
 
 	public XVerticalScrollView() {
 		setStyleName(XStyle.scrollPanel.name());
@@ -130,7 +130,7 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 
 	@Override
 	public void onDragStart(DragEvent e) {
-
+		
 		_lazyInit();
 
 		double matrixY = getScrollToPositionY();
@@ -218,7 +218,7 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 			currY = bottom;
 		}
 		FxUtil.setTransitionDuration(el(), time);
-		setScrollPositionY((int) currY);
+		setScrollPositionY(currY);
 	}
 
 	@Override
@@ -241,11 +241,21 @@ public class XVerticalScrollView extends MPanelBase implements HasWidgets, DragE
 	private void _lazyInit() {
 		// lazy init. no reason to calculate each time in onDragMove
 		// if (panelHeight < 1) {
-		panelHeight = Utils.getHeight(this.getElement());
+		panelHeight = FxUtil.getHeight(this.getElement());
 		// }
 		// if (widgetHeight < 1) {
 		widgetHeight = el().getOffsetHeight();
 		// }
+	}
+
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
 	}
 
 }

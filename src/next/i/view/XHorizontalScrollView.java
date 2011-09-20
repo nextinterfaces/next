@@ -227,11 +227,21 @@ public class XHorizontalScrollView extends MPanelBase implements HasWidgets, Dra
 	private void _lazyInit() {
 		// lazy init. no reason to calculate each time in onDragMove
 		if (panelWidth < 1) {
-			panelWidth = Utils.getWidth(this.getElement());
+			panelWidth = FxUtil.getWidth(this.getElement());
 		}
 		if (widgetWidth < 1) {
 			widgetWidth = el().getOffsetWidth();
 		}
+	}
+
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
 	}
 
 }
