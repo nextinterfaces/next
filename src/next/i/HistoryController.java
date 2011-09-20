@@ -35,7 +35,7 @@ public class HistoryController {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> e) {
-				// XLog.info("onHistoryChange: " + e.getValue()); 
+				// XLog.info("onHistoryChange: " + e.getValue());
 			}
 		});
 	}
