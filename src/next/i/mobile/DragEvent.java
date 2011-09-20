@@ -35,7 +35,7 @@ import com.google.gwt.user.client.Event;
 
 public class DragEvent {
 	public enum Type {
-		Start, Move, End
+		Start, Move, MoveHorizontal, MoveVertical, End
 	};
 
 	public final double X, Y;
@@ -67,16 +67,20 @@ public class DragEvent {
 	}
 
 	public void dispatch(DragEventsHandler handler) {
-		switch (_type) {
-		case Start:
+		if (_type == Type.Start) {
 			handler.onDragStart(this);
-			break;
-		case Move:
+
+		} else if (_type == Type.Move) {
 			handler.onDragMove(this);
-			break;
-		case End:
+
+		} else if (_type == Type.MoveHorizontal) {
+			handler.onDragMoveHorizontal(this);
+
+		} else if (_type == Type.MoveVertical) {
+			handler.onDragMoveVertical(this);
+
+		} else if (_type == Type.End) {
 			handler.onDragEnd(this);
-			break;
 		}
 	}
 
