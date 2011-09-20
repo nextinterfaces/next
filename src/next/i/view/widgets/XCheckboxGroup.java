@@ -217,4 +217,14 @@ public class XCheckboxGroup extends MPanelBase implements HasWidgets, ClickHandl
 		// onDragMove(e);
 	}
 
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
+	}
+
 }

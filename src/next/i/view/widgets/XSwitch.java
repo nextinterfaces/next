@@ -103,4 +103,14 @@ public class XSwitch extends Composite implements DragEventsHandler, HasValueCha
 		_switched = !_switched;
 		ValueChangeEvent.fire(XSwitch.this, _switched);
 	}
+
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
+	}
 }

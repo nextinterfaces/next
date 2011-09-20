@@ -37,6 +37,9 @@ public class XFlexTable extends FlexTable {
 			getElement().getStyle().setProperty("background", background);
 		}
 	}
+  public void add(Widget child) {
+		addWidgets(HasHorizontalAlignment.ALIGN_CENTER, child);
+  }
 
 	public void addWidgets(Widget... widgets) {
 		addWidgets(HasHorizontalAlignment.ALIGN_CENTER, widgets);

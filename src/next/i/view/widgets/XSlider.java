@@ -146,4 +146,14 @@ public class XSlider extends Composite implements DragEventsHandler, HasValueCha
 	private Element getSliderElement_() {
 		return (Element) _slider.getElement().getChild(1);
 	}
+
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
+	}
 }

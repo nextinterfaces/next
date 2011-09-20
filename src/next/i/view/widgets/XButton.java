@@ -212,4 +212,14 @@ public class XButton extends Composite implements HasClickHandlers, DragEventsHa
 		}
 	}
 
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
+	}
+
 }

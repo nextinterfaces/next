@@ -223,4 +223,14 @@ public class XRadioButtonGroup extends MPanelBase implements HasWidgets, ClickHa
 		return _name;
 	}
 
+	@Override
+	public void onDragMoveHorizontal(DragEvent e) {
+		// Not implemented
+	}
+
+	@Override
+	public void onDragMoveVertical(DragEvent e) {
+		// Not implemented
+	}
+
 }
