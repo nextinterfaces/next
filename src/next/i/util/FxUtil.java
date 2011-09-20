@@ -28,6 +28,24 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class FxUtil {
 
+	public static native void reload() /*-{
+		$wnd.location.reload();
+	}-*/;
+
+	public static native boolean supportOrientation() /*-{
+		var b = ("onorientationchange" in window);
+		return (b != null && b == true);
+	}-*/;
+
+	public static native void addOrientationListener() /*-{
+		$wnd.addEventListener("orientationchange", function() {
+			//			alert('window.orientation:' + $wnd.orientation);
+			setTimeout(function() {
+				$wnd.__doEvent('1', 'ORIENTATION_CHANGE');
+			}, 100);
+		}, false);
+	}-*/;
+
 	public static double getStyleLeft(Widget w) {
 		Style style = w.getElement().getStyle();
 		String left = style.getLeft();
@@ -62,11 +80,10 @@ public class FxUtil {
 
 		final Element ele = obj.getElement();
 
-//		obj.setVisible(false);
+		// obj.setVisible(false);
 		ele.getStyle().setOpacity(0);
 		setTransitionProperty(ele, "opacity");
 		setTransitionDuration(ele, 250);
-
 
 		new Timer() {
 			public void run() {
@@ -164,6 +181,16 @@ public class FxUtil {
 				window.getComputedStyle(ele).webkitTransform);
 		//console.log( "YY: a:" + matrix.a + " b:" + matrix.b + " c:" + matrix.c + " d:" + matrix.d + " e:" + matrix.e + " f:" + matrix.f + " ");
 		return matrix.f;
+	}-*/;
+
+	public static native int getHeight(Element ele) /*-{
+		return parseInt($doc.defaultView.getComputedStyle(ele, "")
+				.getPropertyValue("height"));
+	}-*/;
+
+	public static native int getWidth(Element ele) /*-{
+		return parseInt($doc.defaultView.getComputedStyle(ele, "")
+				.getPropertyValue("width"));
 	}-*/;
 
 }

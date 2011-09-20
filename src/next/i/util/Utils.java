@@ -101,15 +101,6 @@ public class Utils {
 		return Document.get().getDocumentElement().getClassName().contains("WVGA");
 	}
 
-	public static native int getHeight(Element ele) /*-{
-		return parseInt($doc.defaultView.getComputedStyle(ele, "")
-				.getPropertyValue("height"));
-	}-*/;
-
-	public static native int getWidth(Element ele) /*-{
-		return parseInt($doc.defaultView.getComputedStyle(ele, "")
-				.getPropertyValue("width"));
-	}-*/;
 
 	public static int getTargetItemIndex(Element parent, EventTarget target) {
 		Element div = Element.as(target);
