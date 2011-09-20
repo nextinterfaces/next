@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import next.i.XLog;
+import next.i.mobile.DragEvent.Type;
 import next.i.util.Utils;
 
 import com.google.gwt.core.client.GWT;
@@ -66,6 +66,12 @@ public abstract class DragController implements EventListener {
 	protected JavaScriptObject _dragStartListener;
 	protected JavaScriptObject _dragMoveListener;
 	protected JavaScriptObject _dragEndListener;
+
+	private Point _startDragPos = new Point(0, 0);
+	// private boolean _hasMoveStarted = false;
+	private DragEvent.Type movedirection;
+
+	private int movecounter = 0;
 
 	protected static DragController INSTANCE = GWT.create(DragController.class);
 
@@ -125,20 +131,49 @@ public abstract class DragController implements EventListener {
 		_currDragTimeStamp = _lastDragTimeStamp;
 		_lastDragPos.clone(p);
 		_currDragPos.clone(p);
+		_startDragPos.clone(p);
+
+		// XLog.info("onStart curr=" + (int) p.X() + " : " + (int) p.Y());
+
 		DragEvent dragEvent = new DragEvent(e, DragEvent.Type.Start, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
 				- _currDragPos.Y());
 		fireDragEvent(dragEvent);
-
 	}
 
 	protected void onMove(Event e, Point p) {
 		if (_isDown) {
 			if (p.equals(_currDragPos)) {
-				XLog.info("NO movement onMove");
+				// XLog.info("NO movement onMove");
 				return;
 			}
 			_suppressNextClick = true;
-			DragEvent dragEvent = new DragEvent(e, DragEvent.Type.Move, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
+
+			if (movedirection == null && movecounter > 0) {
+				double vertDelta = Math.abs(_startDragPos.Y() - p.Y());
+				double horizDelta = Math.abs(_startDragPos.X() - p.X());
+
+				if (vertDelta > horizDelta) {
+					movedirection = Type.MoveVertical;
+				} else {
+					movedirection = Type.MoveHorizontal;
+				}
+			}
+
+			if (movedirection == null) {
+				movecounter++;
+			} else {
+				DragEvent dragEvent = new DragEvent(e, movedirection, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
+						- _currDragPos.Y());
+				fireDragEvent(dragEvent);
+				// XLog.info("moveDirection !!!! " + movedirection + " vertDelta=" +
+				// vertDelta + " horizDelta=" +horizDelta);
+			}
+
+			// XLog.info("onMove _lastDragPos=" + (int) _lastDragPos.X() + " : " +
+			// (int) _lastDragPos.Y() + " curr="
+			// + (int) p.X() + " : " + (int) p.Y());
+
+			DragEvent dragEvent = new DragEvent(e, Type.Move, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
 					- _currDragPos.Y());
 			fireDragEvent(dragEvent);
 			_lastDragPos.clone(_currDragPos);
@@ -150,6 +185,9 @@ public abstract class DragController implements EventListener {
 	}
 
 	protected void onEnd(Event e, Point p) {
+		movedirection = null;
+		movecounter = 0;
+
 		if (_isDown) {
 			_isDown = false;
 			DragEvent dragEvent = new DragEvent(e, DragEvent.Type.End, p.X(), p.Y(), p.X() - _currDragPos.X(), p.Y()
@@ -174,10 +212,10 @@ public abstract class DragController implements EventListener {
 			} else if (speed < -4) {
 				speed = -4;
 			}
-			// XLog.info("onEnd...." + speed);
+			// XLog.info("onEnd, speed is " + speed);
 
 			if (Math.abs(speed) > 0.2) {
-				// XLog.info("onEnd....");
+				// XLog.info("onEnd, before swipeEvent .... speed is " + speed);
 				SwipeEvent swipeEvent = new SwipeEvent(e, swipeType, speed);
 				fireSwipeEvent(swipeEvent);
 			}
@@ -263,12 +301,12 @@ public abstract class DragController implements EventListener {
 
 	public void suspend() {
 		unregisterEvents();
-		XLog.info("drag events suspended.");
+		// XLog.info("drag events suspended.");
 	}
 
 	public void resume() {
 		registerEvents();
-		XLog.info("drag events resumed.");
+		// XLog.info("drag events resumed.");
 	}
 
 	public boolean captureDragEvents(DragEventsHandler cachingHandler) {
