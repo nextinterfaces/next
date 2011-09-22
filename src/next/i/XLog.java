@@ -20,25 +20,27 @@ import com.google.gwt.user.client.Window;
 public class XLog {
 
 	private static String host = Window.Location.getHost();
-	private static boolean isLocalhost = (host.contains("127") || host.contains("192.168") || host.contains("localhost")) ? true
-			: false;
+
+	// private static boolean isLocalhost = (host.contains("127") ||
+	// host.contains("192.168") || host.contains("localhost")) ? true
+	// : false;
 
 	public static void info(String text) {
-		if (isLocalhost) {
-			console("INFO: " + text);
-		}
+		// if (isLocalhost) {
+		console("INFO: " + text);
+		// }
 	}
 
 	public static void warn(String text) {
-		if (isLocalhost) {
-			console("WARN: " + text);
-		}
+		// if (isLocalhost) {
+		console("WARN: " + text);
+		// }
 	}
 
 	public static void err(String text) {
-		if (isLocalhost) {
-			console("ERROR: " + text);
-		}
+		// if (isLocalhost) {
+		console("ERROR: " + text);
+		// }
 	}
 
 	/**

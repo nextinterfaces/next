@@ -51,7 +51,7 @@ Installation:
 
 ### Hello World in 30 seconds:
 
-* Create a new GWT project as explained above
+* Create a new GWT project as explained above 
 * Create class `HelloWorldController`
 
 				class HelloWorldController extends XTableController {

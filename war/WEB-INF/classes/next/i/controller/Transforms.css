@@ -1,0 +1,270 @@
+/*
+ * Copyright 2011 Vancouver Ywebb Consulting Ltd
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
+.slide {
+    width: inherit;
+    height: inherit;
+}
+
+.slide {
+    -webkit-transition-property: -webkit-transform;
+    /* -webkit-transition-duration: 300ms; */
+    -webkit-transition-timing-function: ease-out;
+    position: absolute;
+}
+
+/*--------*/
+.slide.EC.start {
+    -webkit-transform: translate3d(100%, 0, 0);
+}
+
+.slide.EC {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slide.CE.start {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slide.CE {
+    -webkit-transform: translate3d(100%, 0, 0);
+}
+
+/*--------*/
+.slide.CW.start {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slide.CW {
+    -webkit-transform: translate3d(-100%, 0, 0);
+}
+
+.slide.WC.start {
+    -webkit-transform: translate3d(-100%, 0, 0);
+}
+
+.slide.WC {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+/*--------*/
+.slide.SC.start {
+    -webkit-transform: translate3d(0, 100%, 0);
+}
+
+.slide.SC {
+    z-index: 10;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slide.CS.start {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slide.CS {
+    z-index: 10;
+    -webkit-transform: translate3d(0, 100%, 0);
+}
+
+/*--------*/
+.slide.NC.start {
+    -webkit-transform: translate3d(0, -100%, 0);
+}
+
+.slide.NC {
+    z-index: 10;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slide.CN.start {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slide.CN {
+    z-index: 10;
+    -webkit-transform: translate3d(0, -100%, 0);
+}
+
+/*--------*/
+.fade {
+    z-index: 10;
+    -webkit-transition-property: opacity;
+    /* -webkit-transition-duration: 1000ms; */
+    -webkit-transition-timing-function: ease-in-out;
+    position: absolute;
+}
+
+.fade.out.start {
+    opacity: 1;
+}
+
+.fade.out {
+    opacity: 0;
+}
+
+.fade.in.start {
+    opacity: 0;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+/*--------*/
+.pop {
+    z-index: 10;
+    -webkit-transition-property: -webkit-transform;
+    /*-webkit-transition-duration: 250ms;*/
+    -webkit-transition-timing-function: ease-in-out;
+    position: absolute;
+    -webkit-box-shadow: 0 0 10px 2px #888;
+}
+
+.pop.out {
+    -webkit-transform: scale(0);
+}
+
+.pop.out.start {
+    -webkit-transform: scale(1);
+}
+
+.pop.in {
+    -webkit-transform: scale(1);
+}
+
+.pop.in.start {
+    -webkit-transform: scale(0);
+}
+
+/*--------*/
+.flip {
+    z-index: 10;
+    -webkit-transition-property: -webkit-transform;
+    /*-webkit-transition-duration: 300ms;*/
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+}
+
+.flip.in {
+    -webkit-transform: perspective(4000) rotateY(0deg) scale(1);
+}
+
+.flip.in.start {
+    -webkit-transform: perspective(4000) rotateY(-90deg) scale(.8);
+}
+
+.flip.out {
+    -webkit-transform: perspective(4000) rotateY(90deg) scale(.8);
+}
+
+.flip.out.start {
+    -webkit-transform: perspective(4000) rotateY(0deg) scale(1);
+}
+
+/*---------*/
+.swap {
+    z-index: 10;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+/*
+ * Swap
+ */
+.swapOne.out.start {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+}
+
+.swapOne.out {
+    -webkit-transform: translate3d(35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwo.out.start {
+    -webkit-transform: translate3d(35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwo.out {
+    -webkit-transform: translate3d(0, 0, 0) scale(0);
+    opacity: 0;
+}
+
+.swapOne.in.start {
+    -webkit-transform: translate3d(0, 0, 0) scale(0);
+    opacity: 0;
+}
+
+.swapOne.in {
+    -webkit-transform: translate3d(-35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwo.in.start {
+    -webkit-transform: translate3d(-35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwo.in {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+}
+
+/*
+ * Swap Reverse
+ */
+.swapOneReverse.out.start {
+    -webkit-transform: translate3d(0, 0, 0) scale(0);
+    opacity: 0;
+}
+
+.swapOneReverse.out {
+    -webkit-transform: translate3d(35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwoReverse.out.start {
+    -webkit-transform: translate3d(35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwoReverse.out {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+}
+
+.swapOneReverse.in.start {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+}
+
+.swapOneReverse.in {
+    -webkit-transform: translate3d(-35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwoReverse.in.start {
+    -webkit-transform: translate3d(-35%, 0, 0) scale(.5);
+    opacity: .5;
+}
+
+.swapTwoReverse.in {
+    -webkit-transform: translate3d(0, 0, 0) scale(0);
+    opacity: 0;
+}
