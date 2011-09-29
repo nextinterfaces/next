@@ -15,14 +15,12 @@
  */
 package next.i.controller;
 
-
 import java.util.ArrayList;
 
 import next.i.view.XTabBar;
 
-
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * The class manages TabBar view behavior.
@@ -39,20 +37,21 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
  * 
  * <pre>
  * XTabController tabOne = new XTabController(new ControllerOne());
- * tabOne.set(&quot;Hello&quot;, new Image(&quot;tabIcon.png&quot;), new Image(&quot;tabSelected.png&quot;));
+ * tabOne.set(&quot;Tab1&quot;, new Image(&quot;tabIcon.png&quot;), new Image(&quot;tabSelected.png&quot;));
  * 
  * XTabController tabTwo = new XTabController(new TableController() {
  * 	{
- * 		setTitle(&quot;GoodBye&quot;);
+ * 		setTitle(&quot;Tab2&quot;);
  * 		TableData tableDS = new TableData();
- * 		tableDS.add(&quot;Good&quot;, &quot;Bye&quot;);
+ * 		tableDS.add(&quot;A row&quot;, &quot;Another row&quot;);
  * 		initDataSource(tableDS);
  * 	}
  * });
- * tabTwo.set(&quot;GoodBye&quot;, new Image(&quot;tabIcon.png&quot;), new Image(&quot;tabSelected.png&quot;));
+ * tabTwo.set(&quot;Tab2&quot;, new Image(&quot;tabIcon.png&quot;), new Image(&quot;tabSelected.png&quot;));
  * 
  * XTabBarController tabBar = new XTabBarController();
  * tabBar.addControllers(tabOne, tabTwo);
+ * tabBar.attach(RootLayoutPanel.get());
  * </pre>
  */
 public class XTabBarController {
@@ -62,50 +61,11 @@ public class XTabBarController {
 	private XTabController _visibleTabController;
 
 	public XTabBarController() {
-		TabBarController_();
+		_view = new XTabBar();
+		_list = new ArrayList<XTabController>();
 	}
 
 	public void addControllers(XTabController... controllers) {
-		addControllers_(controllers);
-	}
-
-	public void onTabChange(XTabController selectedTab) {
-		onTabChange_(selectedTab);
-	}
-
-	public XTabController getVisibleTabController() {
-		return _visibleTabController;
-	}
-
-	public XTabBar getTabBar() {
-		return _view;
-	}
-
-	public void attach() {
-		attach_();
-	}
-
-	/**
-	 * private
-	 */
-
-	private void attach_() {
-		if (!_view.isAttached()) {
-			// getNavigation().setSize("100%", "100%");
-			RootLayoutPanel.get().add(this._view);
-		}
-	}
-
-	private void onTabChange_(XTabController selectedTab) {
-		for (XTabController tc : _list) {
-			tc.setSelected(false);
-		}
-		selectedTab.setSelected(true);
-		_visibleTabController = selectedTab;
-		addTabContent_(selectedTab);
-	}
-
-	private void addControllers_(final XTabController... controllers) {
 		if (controllers != null && controllers.length > 0) {
 
 			double count = controllers.length;
@@ -124,24 +84,34 @@ public class XTabBarController {
 		}
 	}
 
-	private void TabBarController_() {
-		_view = new XTabBar();
-		_list = new ArrayList<XTabController>();
-		this.attach();
+	public void onTabChange(XTabController selectedTab) {
+		for (XTabController tc : _list) {
+			tc.setSelected(false);
+		}
+		selectedTab.setSelected(true);
+		_visibleTabController = selectedTab;
+		addTabContent_(selectedTab);
+	}
+
+	public XTabController getVisibleTabController() {
+		return _visibleTabController;
+	}
+
+	public XTabBar getTabBar() {
+		return _view;
+	}
+
+	public void attach(HasWidgets container) {
+		if (!_view.isAttached()) {
+			container.add(this._view);
+		}
 		RootAttacher.register(this);
 	}
 
 	private void addTabContent_(XTabController tab) {
-		// Window.alert("added tab " + tab.hashCode());
 		getTabBar().getContent().clear();
-		// tab.getIController().getNavigation().asWidget().getElement().setId("xxxxxxxx");
-		// Utils.fillParent(tab.getIController().getNavigation().asWidget().getElement());
 		getTabBar().add(tab.getIController().getNavigationView());
-		// getTabBar().get
 		Utils.fillParent(tab.getIController().getNavigationView().asWidget().getElement());
-		// tab.getUIController().getUiView().setHeight(Globals.getTabContentHeight()
-		// + "px");
-		// Window.alert("getOffsetHeight: " + Globals.getTabContentHeight());
 	}
 
 }
