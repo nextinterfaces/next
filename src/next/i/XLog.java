@@ -15,37 +15,78 @@
  */
 package next.i;
 
-import com.google.gwt.user.client.Window;
 
 public class XLog {
 
-	private static String host = Window.Location.getHost();
+	private static boolean isDiv = isDiv();
 
-	// private static boolean isLocalhost = (host.contains("127") ||
-	// host.contains("192.168") || host.contains("localhost")) ? true
-	// : false;
+	private static String level = getLevel();
+
+	public static void setLevel(String level) {
+		XLog.level = level;
+	}
 
 	public static void info(String text) {
-		// if (isLocalhost) {
-		console("INFO: " + text);
-		// }
+		if (!isDiv) {
+			if ("INFO".equals(level)) {
+				console("INFO: " + text);
+			}
+		} else {
+			if ("INFO".equals(level)) {
+				consoleDiv("INFO: " + text);
+			}
+		}
+	}
+
+	public static void info(String text, Object... args) {
+		if (args != null) {
+			for (int i = 0; i < args.length; i++) {
+				text = text.replace("$" + (i + 1), "" + args[i]);
+			}
+		}
+		info(text);
 	}
 
 	public static void warn(String text) {
-		// if (isLocalhost) {
-		console("WARN: " + text);
-		// }
+		if (!isDiv) {
+			if ("INFO".equals(level) || "WARN".equals(level)) {
+				console("WARN: " + text);
+			}
+		} else {
+			if ("INFO".equals(level) || "WARN".equals(level)) {
+				consoleDiv("WARN: " + text);
+			}
+		}
+	}
+
+	public static void warn(String text, Object... args) {
+		if (args != null) {
+			for (int i = 0; i < args.length; i++) {
+				text = text.replace("$" + (i + 1), "" + args[i]);
+			}
+		}
+		warn(text);
 	}
 
 	public static void err(String text) {
-		// if (isLocalhost) {
-		console("ERROR: " + text);
-		// }
+		if (!isDiv) {
+			console("ERROR: " + text);
+		} else {
+			consoleDiv("ERROR: " + text);
+		}
+	}
+
+	public static void err(String text, Object... args) {
+		if (args != null) {
+			for (int i = 0; i < args.length; i++) {
+				text = text.replace("$" + (i + 1), "" + args[i]);
+			}
+		}
+		err(text);
 	}
 
 	/**
-	 * Utility method throwing an error allowing to position stak execution of a
-	 * method
+	 * Utility method throwing an error allowing to track code execution in stack
 	 */
 	public static void throwStackTrace() {
 		try {
@@ -55,14 +96,36 @@ public class XLog {
 		}
 	}
 
-	private static native void console(String msg) /*-{
+	private static native boolean isDiv() /*-{
 		var logElem = $doc.getElementById('xlog');
 		if (logElem) {
-			logElem.innerHTML = msg + '<br/>' + logElem.innerHTML;
-		} else {
-			if ($wnd.console) {
-				$wnd.console.log(msg);
-			}
+			return true;
+		}
+		return false;
+	}-*/;
+
+	private static native void consoleDiv(String msg) /*-{
+		//var logElem = $doc.getElementById('xlog');
+		//if (logElem) {
+		logElem.innerHTML = msg + '<br/>' + logElem.innerHTML;
+		//}
+	}-*/;
+
+	private static native void console(String msg) /*-{
+		if ($wnd.console) {
+			$wnd.console.log(msg);
 		}
 	}-*/;
+
+	private static native String getLevel() /*-{
+		if ($wnd.NEXT && $wnd.NEXT.XLog && $wnd.NEXT.XLog.level) {
+			return $wnd.NEXT.XLog.level;
+		} else {
+			$wnd.NEXT = $wnd.NEXT ? $wnd.NEXT : {};
+			$wnd.NEXT.XLog = {};
+			$wnd.NEXT.XLog.level = "WARN";
+			return "WARN";
+		}
+	}-*/;
+
 }

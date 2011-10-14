@@ -199,10 +199,10 @@ public abstract class DragController implements EventListener {
 			SwipeEvent.Type swipeType;
 			if (Math.abs(distanceX) > Math.abs(distanceY)) {
 				distance = distanceX;
-				swipeType = SwipeEvent.Type.Horizontal;
+				swipeType = distance > 0 ? SwipeEvent.Type.HorizontalLeftRight : SwipeEvent.Type.HorizontalRightLeft;
 			} else {
 				distance = distanceY;
-				swipeType = SwipeEvent.Type.Vertical;
+				swipeType = distance > 0 ? SwipeEvent.Type.VerticalTopBottom : SwipeEvent.Type.VerticalBottomTop;
 			}
 			Date currentDateTime = new Date();
 			long time = currentDateTime.getTime() - _lastDragTimeStamp;

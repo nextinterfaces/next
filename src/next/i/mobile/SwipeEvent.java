@@ -36,7 +36,10 @@ import com.google.gwt.user.client.Event;
 public class SwipeEvent {
 
 	public enum Type {
-		Vertical, Horizontal
+		VerticalTopBottom, 
+		VerticalBottomTop, 
+		HorizontalLeftRight, 
+		HorizontalRightLeft
 	};
 
 	private double _speed;
@@ -48,6 +51,10 @@ public class SwipeEvent {
 		_nativeEvent = nativeEvent;
 		_type = type;
 		_speed = speed;
+	}
+
+	public Type getType() {
+		return _type;
 	}
 
 	public void stopPropagation() {
@@ -68,11 +75,9 @@ public class SwipeEvent {
 	}
 
 	public void dispatch(SwipeEventsHandler handler) {
-		switch (_type) {
-		case Vertical:
+		if (_type == Type.VerticalTopBottom || _type == Type.VerticalBottomTop) {
 			handler.onSwipeVertical(this);
-			break;
-		case Horizontal:
+		} else if (_type == Type.HorizontalLeftRight || _type == Type.HorizontalRightLeft) {
 			handler.onSwipeHorizontal(this);
 		}
 	}

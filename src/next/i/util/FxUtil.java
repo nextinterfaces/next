@@ -37,14 +37,15 @@ public class FxUtil {
 		return (b != null && b == true);
 	}-*/;
 
-	public static native void addOrientationListener() /*-{
-		$wnd.addEventListener("orientationchange", function() {
-			//			alert('window.orientation:' + $wnd.orientation);
-			setTimeout(function() {
-				$wnd.__doEvent('1', 'ORIENTATION_CHANGE');
-			}, 100);
-		}, false);
-	}-*/;
+	public static double getStyleLeft(Element el) {
+		Style style = el.getStyle();
+		String left = style.getLeft();
+		if (left.isEmpty()) {
+			return 0;
+		} else {
+			return Double.parseDouble(left.replace("px", ""));
+		}
+	}
 
 	public static double getStyleLeft(Widget w) {
 		Style style = w.getElement().getStyle();
