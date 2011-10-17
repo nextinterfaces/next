@@ -78,13 +78,17 @@ public class FxUtil {
 	}
 
 	public static void fadeIn(final UIObject obj) {
+		fadeIn(obj, 250);
+	}
+
+	public static void fadeIn(final UIObject obj, double duration) {
 
 		final Element ele = obj.getElement();
 
 		// obj.setVisible(false);
 		ele.getStyle().setOpacity(0);
 		setTransitionProperty(ele, "opacity");
-		setTransitionDuration(ele, 250);
+		setTransitionDuration(ele, duration);
 
 		new Timer() {
 			public void run() {
@@ -95,13 +99,18 @@ public class FxUtil {
 	}
 
 	public static void fadeOut(final UIObject obj, final Command onClose) {
+		fadeOut(obj, 250, onClose);
+
+	}
+
+	public static void fadeOut(final UIObject obj, double duration, final Command onClose) {
 
 		final Element ele = obj.getElement();
 
 		obj.setVisible(true);
 		ele.getStyle().setOpacity(1);
 		setTransitionProperty(ele, "opacity");
-		setTransitionDuration(ele, 250);
+		setTransitionDuration(ele, duration);
 
 		new Timer() {
 			public void run() {
