@@ -93,18 +93,23 @@ public class XPopup extends SimplePanel {
 	@Override
 	protected void onLoad() {
 		super.onLoad();
-		Style s = getWidget().getElement().getStyle();
-		getWidget().addStyleName("xpopup");
-		doPosition(s);
+		if (getWidget() != null) {
+//			getWidget().addStyleName("xpopup");
+//			Style s = getWidget().getElement().getStyle();
+			doPosition();
+		}
 	}
 
 	@Override
 	public void setWidget(Widget w) {
 		super.setWidget(w);
+		w.addStyleName("xpopup");
 	}
 
-	private void doPosition(Style s) {
-
+	public void doPosition() {
+		
+		Style s = getWidget().getElement().getStyle();
+		
 		if (isCentered) {
 
 			setBottom(null);
@@ -159,7 +164,7 @@ public class XPopup extends SimplePanel {
 			this.setVisible(true);
 			this.getElement().getStyle().setOpacity(1);
 		} else {
-			FxUtil.fadeIn(this);
+			FxUtil.fadeIn(this.getElement());
 		}
 	}
 
@@ -167,8 +172,7 @@ public class XPopup extends SimplePanel {
 		if (Utils.isAndroid()) {
 			removeFromParent();
 		} else {
-			FxUtil.fadeOut(this, new Command() {
-				@Override
+			FxUtil.fadeOut(this.getElement(), 250, new Command() {
 				public void execute() {
 					// XPopup.super.hide(autoClosed);
 					// setVisible(false);
@@ -176,7 +180,6 @@ public class XPopup extends SimplePanel {
 				}
 			});
 		}
-
 	}
 
 }

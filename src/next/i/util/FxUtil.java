@@ -77,13 +77,13 @@ public class FxUtil {
 		style.setTop(top, Unit.PX);
 	}
 
-	public static void fadeIn(final UIObject obj) {
-		fadeIn(obj, 250);
+	public static void fadeIn(Element ele) {
+		fadeIn(ele, 250, null);
 	}
 
-	public static void fadeIn(final UIObject obj, double duration) {
+	public static void fadeIn(final Element ele, final double duration, final Command onComplete) {
 
-		final Element ele = obj.getElement();
+//		final Element ele = obj.getElement();
 
 		// obj.setVisible(false);
 		ele.getStyle().setOpacity(0);
@@ -92,22 +92,29 @@ public class FxUtil {
 
 		new Timer() {
 			public void run() {
-				obj.setVisible(true);
+				UIObject.setVisible(ele, true);
 				ele.getStyle().setOpacity(1);
+				if (onComplete != null) {
+					new Timer() {
+						public void run() {
+							onComplete.execute();
+						}
+					}.schedule((int)duration);
+				}
 			}
 		}.schedule(10);
 	}
 
-	public static void fadeOut(final UIObject obj, final Command onClose) {
-		fadeOut(obj, 250, onClose);
+	public static void fadeOut(Element ele) {
+		fadeOut(ele, 250, null);
 
 	}
 
-	public static void fadeOut(final UIObject obj, double duration, final Command onClose) {
+	public static void fadeOut(final Element ele, final double duration, final Command onComplete) {
 
-		final Element ele = obj.getElement();
+//		final Element ele = obj.getElement();
 
-		obj.setVisible(true);
+		UIObject.setVisible(ele, true);
 		ele.getStyle().setOpacity(1);
 		setTransitionProperty(ele, "opacity");
 		setTransitionDuration(ele, duration);
@@ -117,13 +124,13 @@ public class FxUtil {
 
 				ele.getStyle().setOpacity(0);
 
-				if (onClose != null) {
+				if (onComplete != null) {
 					new Timer() {
 						public void run() {
 							// obj.setVisible(false);
-							onClose.execute();
+							onComplete.execute();
 						}
-					}.schedule(250);
+					}.schedule((int)duration);
 				}
 
 			}
