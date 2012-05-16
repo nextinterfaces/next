@@ -82,7 +82,7 @@ Documentation:
 http://nextinterfaces.com/next
 
 ### Google Group:
-http://groups.google.com/group/
+https://groups.google.com/forum/?fromgroups#!forum/nextinterfaces
 
 Copyright (c) 2012	NEXT interfaces, released under Apache License v.2.0
  
