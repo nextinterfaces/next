@@ -18,7 +18,7 @@ http://nextinterfaces.com/showcases
 Supported Phones & Tablets:
 ---------------------------
 
-Device agnostic, it runs on 6 devices: iOS, Android, BlackBerry OS6+, webOS, Samsung Bada, PlayBook
+Device agnostic, it runs on 6 devices: iOS, Android, BlackBerry 10
 
 ### Dependencies:
 * Java5+
