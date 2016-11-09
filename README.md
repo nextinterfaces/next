@@ -71,7 +71,7 @@ Installation:
 				}
 
       
-* Eclipse `/Run /Run as Web Application` resulting in [this screenshot](http://goo.gl/fFQXY)
+* Eclipse `/Run /Run as Web Application` resulting in [this screenshot](http://nextinterfaces.com/images/misc/hello-world-gwt-mobile-demo-phone-touch.png)
 
 See the zipped `/hello-next` project or [next-demo](https://github.com/nextinterfaces/next-demo) for more information.
 
@@ -81,8 +81,5 @@ Documentation:
 
 http://nextinterfaces.com/next
 
-### Google Group:
-https://groups.google.com/forum/?fromgroups#!forum/nextinterfaces
-
-Copyright (c) 2012	NEXT interfaces, released under Apache License v.2.0
+Copyright (c) 2017	NEXT interfaces, released under Apache License v.2.0
  
