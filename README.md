@@ -76,10 +76,7 @@ Installation:
 See the zipped `/hello-next` project or [next-demo](https://github.com/nextinterfaces/next-demo) for more information.
 
 
-Documentation:
+License:
 --------------
-
-http://nextinterfaces.com/next
-
-Copyright (c) 2017	NEXT interfaces, released under Apache License v.2.0
+Apache License v.2.0
  
