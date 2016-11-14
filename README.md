@@ -9,7 +9,7 @@ MVC based. Amazing looking UI catalog. Cross-Platform.
 http://nextinterfaces.com/next
  
 ### Demo (WebKit only):
-http://nextinterfaces.com/DEMO
+http://nextinterfaces.com/demo
 
 ### Apps (WebKit only):
 http://nextinterfaces.com/showcases
