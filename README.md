@@ -14,6 +14,7 @@ http://nextinterfaces.com/demo
 ### Showcases:
 http://nextinterfaces.com/showcases
 
+![alt tag](http://nextinterfaces.com/images/gwtmobile-phone-widget-next-0.png)
 
 Supported Phones & Tablets:
 ---------------------------
