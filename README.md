@@ -5,6 +5,8 @@ NEXT is a Java GWT UI framework for developing Native Looking HTML5 Mobile apps 
 
 MVC based. Amazing looking UI catalog. Cross-Platform.
 
+![alt tag](http://nextinterfaces.com/images/gwtmobile-phone-widget-next-0.png)
+
 ### More information:
 http://nextinterfaces.com/next
  
@@ -13,8 +15,6 @@ http://nextinterfaces.com/demo
 
 ### Showcases:
 http://nextinterfaces.com/showcases
-
-![alt tag](http://nextinterfaces.com/images/gwtmobile-phone-widget-next-0.png)
 
 Supported Phones & Tablets:
 ---------------------------
